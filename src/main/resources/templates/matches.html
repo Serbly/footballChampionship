@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Матчи</title>
+</head>
+<body>
+<h2>Матчи</h2>
+<table>
+    <tr>
+        <th>Дата</th>
+        <th>Хозяева</th>
+        <th>Гости</th>
+        <th>Счет</th>
+    </tr>
+    <tr th:each="match : ${matches}">
+        <td th:text="${match.date}"></td>
+        <td th:text="${match.homeTeam}"></td>
+        <td th:text="${match.awayTeam}"></td>
+        <td th:text="${match.score}"></td>
+    </tr>
+</table>
+</body>
+</html>

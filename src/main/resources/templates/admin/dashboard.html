@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Админская панель</title>
+</head>
+<body>
+<h2>Админская панель</h2>
+<a href="/logout">Выйти</a>
+<form th:action="@{/admin/save-match}" method="post">
+    <input type="text" name="date" placeholder="Дата">
+    <input type="text" name="homeTeam" placeholder="Хозяева">
+    <input type="text" name="awayTeam" placeholder="Гости">
+    <input type="text" name="stadium" placeholder="Стадион">
+    <input type="number" name="score" placeholder="Счет">
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>
