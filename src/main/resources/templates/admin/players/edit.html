@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Edit Player</title></head>
+<body>
+<h1>Edit Player</h1>
+<form th:action="@{/admin/players/edit}" th:object="${player}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" /><br>
+    <label>Number:</label>
+    <input type="number" th:field="*{number}" /><br>
+    <label>Position:</label>
+    <input type="text" th:field="*{position}" /><br>
+    <label>Team:</label>
+    <select th:field="*{team}">
+        <option th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></option>
+    </select><br>
+    <label>Nationality:</label>
+    <input type="text" th:field="*{nationality}" /><br>
+    <label>Birthdate:</label>
+    <input type="date" th:field="*{birthdate}" /><br>
+    <button type="submit">Save</button>
+    <a href="/admin/players">Cancel</a>
+</form>
+</body>
+</html>

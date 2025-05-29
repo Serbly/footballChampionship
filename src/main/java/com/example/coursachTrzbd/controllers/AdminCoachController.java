@@ -3,52 +3,65 @@ package com.example.coursachTrzbd.controllers;
 import com.example.coursachTrzbd.entity.Coach;
 import com.example.coursachTrzbd.services.CoachService;
 import com.example.coursachTrzbd.services.TeamService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/admin/coaches")
-@PreAuthorize("hasRole('ADMIN')")
+@RequiredArgsConstructor
 public class AdminCoachController {
 
     private final CoachService coachService;
     private final TeamService teamService;
 
     @GetMapping
-    public String list(Model model) {
+    public String listCoaches(Model model) {
         model.addAttribute("coaches", coachService.getAll());
         return "admin/coaches";
     }
 
     @GetMapping("/add")
-    public String addForm(Model model) {
+    public String showAddForm(Model model) {
         model.addAttribute("coach", new Coach());
         model.addAttribute("teams", teamService.getAll());
-        return "admin/add-coach";
+        return "admin/coaches/add";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable Integer id, Model model) {
-        model.addAttribute("coach", coachService.getById(id));
-        model.addAttribute("teams", teamService.getAll());
-        return "admin/edit-coach";
-    }
-
-    @PostMapping("/save")
-    public String save(@ModelAttribute Coach coach) {
+    @PostMapping("/add")
+    public String addCoach(@Valid @ModelAttribute("coach") Coach coach,
+                           BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("teams", teamService.getAll());
+            return "admin/coaches/add";
+        }
         coachService.save(coach);
         return "redirect:/admin/coaches";
     }
 
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Integer id) {
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Integer id, Model model) {
+        Coach coach = coachService.getById(id);
+        model.addAttribute("coach", coach);
+        return "admin/coaches/edit";
+    }
+
+    @PostMapping("/edit")
+    public String updateCoach(@Valid @ModelAttribute("coach") Coach coach,
+                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/coaches/edit";
+        }
+        coachService.save(coach);
+        return "redirect:/admin/coaches";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteCoach(@PathVariable Integer id) {
         coachService.delete(id);
         return "redirect:/admin/coaches";
     }
 }
-
-

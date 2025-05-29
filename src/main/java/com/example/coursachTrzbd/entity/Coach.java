@@ -1,6 +1,8 @@
 package com.example.coursachTrzbd.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -13,10 +15,17 @@ public class Coach {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
-    @Column(name = "coach_name")
-    private String coachName;
+    @NotEmpty(message = "Имя тренера не может быть пустым")
+    private String name;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+    @NotEmpty(message = "Выберите национальность")
     private String nationality;
 
+    @NotNull(message = "Выберите год рождения")
     private LocalDate birthdate;
 }

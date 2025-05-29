@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Edit Standing</title></head>
+<body>
+<h1>Edit Standing</h1>
+<form th:action="@{/admin/standings/edit}" th:object="${standing}" method="post">
+  <input type="hidden" th:field="*{id}" />
+  <label>Championship:</label>
+  <select th:field="*{championship}">
+    <option th:each="champ : ${championships}" th:value="${champ}" th:text="${champ.name}"></option>
+  </select><br>
+  <label>Team:</label>
+  <select th:field="*{team}">
+    <option th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></option>
+  </select><br>
+  <label>Matches Played:</label>
+  <input type="number" th:field="*{matchesPlayed}" /><br>
+  <label>Wins:</label>
+  <input type="number" th:field="*{wins}" /><br>
+  <label>Draws:</label>
+  <input type="number" th:field="*{draws}" /><br>
+  <label>Losses:</label>
+  <input type="number" th:field="*{losses}" /><br>
+  <label>Points:</label>
+  <input type="number" th:field="*{points}" /><br>
+  <button type="submit">Save</button>
+  <a href="/admin/standings">Cancel</a>
+</form>
+</body>
+</html>

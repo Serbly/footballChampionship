@@ -2,50 +2,61 @@ package com.example.coursachTrzbd.controllers;
 
 import com.example.coursachTrzbd.entity.Match;
 import com.example.coursachTrzbd.services.MatchService;
-import com.example.coursachTrzbd.services.TeamService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/admin/matches")
-@PreAuthorize("hasRole('ADMIN')")
+@RequiredArgsConstructor
 public class AdminMatchController {
 
     private final MatchService matchService;
-    private final TeamService teamService;
 
     @GetMapping
-    public String list(Model model) {
+    public String listMatches(Model model) {
         model.addAttribute("matches", matchService.getAll());
         return "admin/matches";
     }
 
     @GetMapping("/add")
-    public String addForm(Model model) {
+    public String showAddForm(Model model) {
         model.addAttribute("match", new Match());
-        model.addAttribute("teams", teamService.getAll());
-        return "admin/add-match";
+        return "admin/matches/add";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable Integer id, Model model) {
-        model.addAttribute("match", matchService.getById(id));
-        model.addAttribute("teams", teamService.getAll());
-        return "admin/edit-match";
-    }
-
-    @PostMapping("/save")
-    public String save(@ModelAttribute Match match) {
+    @PostMapping("/add")
+    public String addMatch(@Valid @ModelAttribute("match") Match match,
+                           BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/matches/add";
+        }
         matchService.save(match);
         return "redirect:/admin/matches";
     }
 
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Integer id) {
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Integer id, Model model) {
+        Match match = matchService.getById(id);
+        model.addAttribute("match", match);
+        return "admin/matches/edit";
+    }
+
+    @PostMapping("/edit")
+    public String updateMatch(@Valid @ModelAttribute("match") Match match,
+                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/matches/edit";
+        }
+        matchService.save(match);
+        return "redirect:/admin/matches";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteMatch(@PathVariable Integer id) {
         matchService.delete(id);
         return "redirect:/admin/matches";
     }

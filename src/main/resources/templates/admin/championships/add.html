@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Add Championship</title></head>
+<body>
+<h1>Add Championship</h1>
+<form th:action="@{/admin/championships/add}" th:object="${championship}" method="post">
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" />
+    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+    <br>
+    <label>Season:</label>
+    <input type="text" th:field="*{season}" />
+    <div th:if="${#fields.hasErrors('season')}" th:errors="*{season}"></div>
+    <br>
+    <button type="submit">Save</button>
+</form>
+<a href="/admin/championships">Back</a>
+</body>
+</html>

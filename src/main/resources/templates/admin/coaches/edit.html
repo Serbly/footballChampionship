@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Edit Coach</title></head>
+<body>
+<h1>Edit Coach</h1>
+<form th:action="@{/admin/coaches/edit}" th:object="${coach}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Name:</label>
+    <input type="text" th:field="*{name}" /><br>
+    <label>Team:</label>
+    <select th:field="*{team}">
+        <option th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></option>
+    </select><br>
+    <label>Nationality:</label>
+    <input type="text" th:field="*{nationality}" /><br>
+    <label>Birthdate:</label>
+    <input type="date" th:field="*{birthdate}" /><br>
+    <button type="submit">Save</button>
+    <a href="/admin/coaches">Cancel</a>
+</form>
+</body>
+</html>

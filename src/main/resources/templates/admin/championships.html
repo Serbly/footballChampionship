@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Championships</title></head>
+<body>
+<h1>Championship Management</h1>
+<table>
+    <tr><th>Name</th><th>Season</th><th>Actions</th></tr>
+    <tr th:each="championship : ${championships}">
+        <td th:text="${championship.name}">Championship</td>
+        <td th:text="${championship.season}">Season</td>
+        <td>
+            <a th:href="@{'/admin/championships/edit/' + ${championship.id}}">Edit</a>
+            <form th:action="@{'/admin/championships/delete/' + ${championship.id}}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Are you sure?');">Delete</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<a href="/admin/championships/add">Add Championship</a> |
+<a href="/admin/dashboard">Back to Dashboard</a>
+</body>
+</html>

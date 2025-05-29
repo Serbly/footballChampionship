@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Standings</title></head>
+<body>
+<h1>Standings Management</h1>
+<table>
+    <tr><th>Championship</th><th>Team</th><th>Matches played</th><th>Wins</th><th>Draws</th><th>Losses</th><th>Points</th><th>Actions</th></tr>
+    <tr th:each="standing : ${standings}">
+        <td th:text="${standing.championship}">Championship</td>
+        <td th:text="${standing.team.name}">Team</td>
+        <td th:text="${standing.matchesPlayed}">Matches played</td>
+        <td th:text="${standing.wins}">Wins</td>
+        <td th:text="${standing.draws}">Draws</td>
+        <td th:text="${standing.losses}">Losses</td>
+        <td th:text="${standing.points}">Points</td>
+        <td>
+            <a th:href="@{'/admin/standings/edit/' + ${standing.id}}">Edit</a>
+            <a th:href="@{'/admin/standings/delete/' + ${standing.id}}">Delete</a>
+        </td>
+    </tr>
+</table>
+<a href="/admin/standings/add">Add Record</a> |
+<a href="/admin/dashboard">Back to Dashboard</a>
+</body>
+</html>

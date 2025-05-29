@@ -1,10 +1,18 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Команды</title></head>
+<head><title>Teams</title></head>
 <body>
-<h2>Список команд</h2>
-<ul>
-    <li th:each="team : ${teams}" th:text="${team.name + ' (' + team.city + ')'}"></li>
-</ul>
+<h2>Teams</h2>
+<table border="1">
+    <tr><th>Name</th><th>City</th><th>Stadium</th><th>Coach</th></tr>
+    <tr th:each="t : ${teams}">
+        <td th:text="${t.name}"></td>
+        <td th:text="${t.city}"></td>
+        <td th:text="${t.stadium}"></td>
+        <td th:text="${t.coach.name}"></td>
+        <td th:each="p : ${t.players}" th:text="${p.name}"></td>
+    </tr>
+</table>
+<a href="/">Back to main menu</a>
 </body>
 </html>

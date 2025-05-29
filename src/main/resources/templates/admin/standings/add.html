@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Add Standing</title></head>
+<body>
+<h1>Add Standing</h1>
+<form th:action="@{/admin/standings/add}" th:object="${standing}" method="post">
+    <label>Championship:</label>
+    <select th:field="*{championship}" th:each="championship : ${championships}" th:value="${championship}" th:text="${championship.name}"></select>
+    <div th:if="${#fields.hasErrors('championship')}" th:errors="*{championship}"></div>
+    <br>
+    <label>Team:</label>
+    <select th:field="*{team}" th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></select>
+    <div th:if="${#fields.hasErrors('team')}" th:errors="*{team}"></div>
+    <br>
+    <label>Matches Played:</label>
+    <input type="number" th:field="*{matchesPlayed}" />
+    <div th:if="${#fields.hasErrors('matchesPlayed')}" th:errors="*{matchesPlayed}"></div>
+    <br>
+    <label>Wins:</label>
+    <input type="number" th:field="*{wins}" />
+    <div th:if="${#fields.hasErrors('wins')}" th:errors="*{wins}"></div>
+    <br>
+    <label>Draws:</label>
+    <input type="number" th:field="*{draws}" />
+    <div th:if="${#fields.hasErrors('draws')}" th:errors="*{draws}"></div>
+    <br>
+    <label>Losses:</label>
+    <input type="number" th:field="*{losses}" />
+    <div th:if="${#fields.hasErrors('losses')}" th:errors="*{losses}"></div>
+    <br>
+    <label>Points:</label>
+    <input type="number" th:field="*{points}" />
+    <div th:if="${#fields.hasErrors('points')}" th:errors="*{points}"></div>
+    <br>
+    <button type="submit">Save</button>
+</form>
+<a href="/admin/standings">Back</a>
+</body>
+</html>

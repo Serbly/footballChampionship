@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Matches</title></head>
+<body>
+<h1>Match Management</h1>
+<table>
+    <tr><th>Championship</th><th>Home Team</th><th>Away Team</th><th>Date</th><th>Score</th><th>Stadium</th><th>Actions</th></tr>
+    <tr th:each="match : ${matches}">
+        <td th:text="${match.championship.name}">Championship</td>
+        <td th:text="${match.homeTeam.name}">Home</td>
+        <td th:text="${match.awayTeam.name}">Away</td>
+        <td th:text="${match.date}">Date</td>
+        <td th:text="${match.score}">Score</td>
+        <td th:text="${match.stadium}">Stadium</td>
+        <td>
+            <a th:href="@{'/admin/matches/edit/' + ${match.id}}">Edit</a>
+            <a th:href="@{'/admin/matches/delete/' + ${match.id}}">Delete</a>
+        </td>
+    </tr>
+</table>
+<a href="/admin/matches/add">Add Match</a> |
+<a href="/admin/dashboard">Back to Dashboard</a>
+</body>
+</html>

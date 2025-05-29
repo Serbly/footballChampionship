@@ -1,47 +1,62 @@
 package com.example.coursachTrzbd.controllers;
 
 import com.example.coursachTrzbd.entity.Standing;
-import com.example.coursachTrzbd.services.ChampionshipService;
 import com.example.coursachTrzbd.services.StandingService;
-import com.example.coursachTrzbd.services.TeamService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/admin/standings")
-@PreAuthorize("hasRole('ADMIN')")
+@RequiredArgsConstructor
 public class AdminStandingController {
 
     private final StandingService standingService;
-    private final ChampionshipService championshipService;
-    private final TeamService teamService;
 
     @GetMapping
-    public String list(Model model) {
+    public String listStandings(Model model) {
         model.addAttribute("standings", standingService.getAll());
         return "admin/standings";
     }
 
     @GetMapping("/add")
-    public String addForm(Model model) {
+    public String showAddForm(Model model) {
         model.addAttribute("standing", new Standing());
-        model.addAttribute("teams", teamService.getAll());
-        model.addAttribute("championships", championshipService.getAll());
-        return "admin/add-standing";
+        return "admin/standings/add";
     }
 
-    @PostMapping("/save")
-    public String save(@ModelAttribute Standing standing) {
+    @PostMapping("/add")
+    public String addStanding(@Valid @ModelAttribute("standing") Standing standing,
+                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/standings/add";
+        }
         standingService.save(standing);
         return "redirect:/admin/standings";
     }
 
-    @GetMapping("/delete/{id}")
-    public String delete(@PathVariable Integer id) {
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Integer id, Model model) {
+        Standing standing = standingService.getById(id);
+        model.addAttribute("standing", standing);
+        return "admin/standings/edit";
+    }
+
+    @PostMapping("/edit")
+    public String updateStanding(@Valid @ModelAttribute("standing") Standing standing,
+                                 BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/standings/edit";
+        }
+        standingService.save(standing);
+        return "redirect:/admin/standings";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteStanding(@PathVariable Integer id) {
         standingService.delete(id);
         return "redirect:/admin/standings";
     }

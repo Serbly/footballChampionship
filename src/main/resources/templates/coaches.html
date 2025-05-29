@@ -4,11 +4,14 @@
 <body>
 <h2>Список тренеров</h2>
 <table border="1">
-    <tr><th>Имя</th><th>Команда</th></tr>
+    <tr><th>Имя</th><th>Команда</th><th>Национальность</th><th>Дата рождения</th></tr>
     <tr th:each="c : ${coaches}">
         <td th:text="${c.name}"></td>
         <td th:text="${c.team.name}"></td>
+        <td th:text="${c.nationality}"></td>
+        <td th:text="${c.birthdate}"></td>
     </tr>
 </table>
+<a href="/">Back to main menu</a>
 </body>
 </html>

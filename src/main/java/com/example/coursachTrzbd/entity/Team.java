@@ -1,6 +1,8 @@
 package com.example.coursachTrzbd.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.util.List;
@@ -12,16 +14,19 @@ public class Team {
     @Id
     private Integer id;
 
-    @Column(name = "team_name")
-    private String teamName;
+    @NotEmpty(message = "Название команды не может быть пустым")
+    private String name;
 
+    @NotEmpty(message = "Укажите название города")
     private String city;
 
+    @NotEmpty(message = "Укажите название стадиона")
     private String stadium;
 
     @OneToOne(fetch = FetchType.LAZY)
     @MapsId
     @JoinColumn(name = "coach_id")
+    @NotNull(message = "Выберите тренера")
     private Coach coach;
 
     @OneToMany(mappedBy = "homeTeam", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

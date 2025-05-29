@@ -4,12 +4,16 @@
 <body>
 <h2>Список игроков</h2>
 <table border="1">
-    <tr><th>Имя</th><th>Позиция</th><th>Команда</th></tr>
+    <tr><th>Имя</th><th>Позиция</th><th>Команда</th><th>Номер</th><th>Национальность</th><th>Дата рождения</th></tr>
     <tr th:each="p : ${players}">
         <td th:text="${p.name}"></td>
         <td th:text="${p.position}"></td>
         <td th:text="${p.team.name}"></td>
+        <td th:text="${p.number}"></td>
+        <td th:text="${p.nationality}"></td>
+        <td th:text="${p.birthdate}"></td>
     </tr>
 </table>
+<a href="/">Back to main menu</a>
 </body>
 </html>

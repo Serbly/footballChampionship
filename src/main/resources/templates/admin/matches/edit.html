@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Edit Match</title></head>
+<body>
+<h1>Edit Match</h1>
+<form th:action="@{/admin/matches/edit}" th:object="${match}" method="post">
+    <input type="hidden" th:field="*{id}" />
+    <label>Championship:</label>
+    <select th:field="*{championship}" required>
+        <option th:each="champ : ${championships}" th:value="${champ}" th:text="${champ.name}"></option>
+    </select><br>
+    <label>Home Team:</label>
+    <select th:field="*{homeTeam}" required>
+        <option th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></option>
+    </select><br>
+    <label>Away Team:</label>
+    <select th:field="*{awayTeam}" required>
+        <option th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></option>
+    </select><br>
+    <label>Date:</label>
+    <input type="datetime-local" th:field="*{date}" /><br>
+    <label>Score:</label>
+    <input type="text" th:field="*{score}" /><br>
+    <label>Stadium:</label>
+    <input type="text" th:field="*{stadium}" /><br>
+    <button type="submit">Save</button>
+    <a href="/admin/matches">Cancel</a>
+</form>
+</body>
+</html>
