@@ -31,15 +31,8 @@ public class CoachService implements CRUDService<Coach> {
     }
 
     @Override
-    public Coach create(Coach item) {
-        log.info("Create");
-        repository.save(item);
-        return item;
-    }
-
-    @Override
-    public Coach update(Coach item) {
-        log.info("Update");
+    public Coach save(Coach item) {
+        log.info("Save");
         repository.save(item);
         return item;
     }

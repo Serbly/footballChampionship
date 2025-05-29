@@ -37,18 +37,8 @@ public class GoalService implements CRUDService<Goal>{
     }
 
     @Override
-    public Goal create(Goal item) {
-        log.info("Create");
-        goalRepository.save(item);
-        return item;
-    }
-
-    @Override
-    public Goal update(Goal item) {
-        log.info("Update");
-        if (goalRepository.findById(item.getId()).isEmpty()) {
-            throw new NotFoundException("Goal with id " + item.getId() + " not found");
-        }
+    public Goal save(Goal item) {
+        log.info("Save");
         goalRepository.save(item);
         return item;
     }

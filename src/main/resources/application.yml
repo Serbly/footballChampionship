@@ -13,3 +13,8 @@ spring:
       name: admin
       password: admin
       roles: ADMIN
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    cache: false

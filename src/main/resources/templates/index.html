@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Футбольный чемпионат</title>
+    <meta charset="UTF-8" />
+    <title>Главная страница - Футбольный чемпионат</title>
 </head>
 <body>
-<h1>Добро пожаловать!</h1>
-<a href="/matches">Смотреть матчи</a>
-<a href="/login">Вход для администратора</a>
+<h1>Добро пожаловать в систему футбольных чемпионатов</h1>
+<p>Выберите раздел для просмотра информации:</p>
+<nav>
+    <a th:href="@{/matches}">Матчи</a>
+    <a th:href="@{/standings}">Таблицы</a>
+    <a th:href="@{/teams}">Команды</a>
+    <a th:href="@{/players}">Игроки</a>
+    <a th:href="@{/championships}">Чемпионаты</a>
+    <a th:href="@{/coaches}">Тренеры</a>
+</nav>
+<p style="margin-top: 50px;">
+    <a th:href="@{/admin/dashboard}">Войти в систему</a>
+</p>
 </body>
 </html>

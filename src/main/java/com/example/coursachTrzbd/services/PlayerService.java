@@ -15,7 +15,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PlayerService implements CRUDService<Player> {
     private final PlayerRepository playerRepository;
-    private final TeamRepository teamRepository;
 
     @Override
     public Player getById(Integer id) {
@@ -33,17 +32,8 @@ public class PlayerService implements CRUDService<Player> {
     }
 
     @Override
-    public Player create(Player item) {
-        log.info("Create");
-        playerRepository.save(item);
-        return item;
-    }
-
-    @Override
-    public Player update(Player item) {
-        log.info("Update");
-        Player player1 = playerRepository.findById(item.getId()).orElseThrow();
-        item.setGoals(player1.getGoals());
+    public Player save(Player item) {
+        log.info("Save");
         playerRepository.save(item);
         return item;
     }

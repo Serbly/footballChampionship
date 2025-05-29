@@ -1,19 +1,45 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Админская панель</title>
+    <title>Панель администратора</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 30px;
+        }
+        h1 {
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            margin: 8px 0;
+        }
+        a {
+            text-decoration: none;
+            font-weight: bold;
+            color: #004080;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-<h2>Админская панель</h2>
-<a href="/logout">Выйти</a>
-<form th:action="@{/admin/save-match}" method="post">
-    <input type="text" name="date" placeholder="Дата">
-    <input type="text" name="homeTeam" placeholder="Хозяева">
-    <input type="text" name="awayTeam" placeholder="Гости">
-    <input type="text" name="stadium" placeholder="Стадион">
-    <input type="number" name="score" placeholder="Счет">
-    <button type="submit">Сохранить</button>
-</form>
+<h1>Панель администратора</h1>
+<p>Выберите раздел для управления:</p>
+<ul>
+    <li><a href="/admin/teams">Управление командами</a></li>
+    <li><a href="/admin/players">Управление игроками</a></li>
+    <li><a href="/admin/coaches">Управление тренерами</a></li>
+    <li><a href="/admin/matches">Управление матчами</a></li>
+    <li><a href="/admin/championships">Чемпионаты</a></li>
+    <li><a href="/admin/standings">Турнирная таблица</a></li>
+    <li><a href="/admin/goals">Голы</a></li>
+    <li><a href="/admin/import">Импорт данных</a></li>
+    <li><a href="/admin/sql">SQL-консоль</a></li>
+</ul>
 </body>
 </html>

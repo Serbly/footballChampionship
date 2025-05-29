@@ -29,18 +29,7 @@ public class TeamService implements CRUDService<Team> {
     }
 
     @Override
-    public Team create(Team item) {
-        teamRepository.save(item);
-        return item;
-    }
-
-    @Override
-    public Team update(Team item) {
-        Team team1 = teamRepository.findById(item.getId()).orElseThrow();
-        item.setStandings(team1.getStandings());
-        item.setPlayers(team1.getPlayers());
-        item.setHomeMatches(team1.getHomeMatches());
-        item.setAwayMatches(team1.getAwayMatches());
+    public Team save(Team item) {
         teamRepository.save(item);
         return item;
     }

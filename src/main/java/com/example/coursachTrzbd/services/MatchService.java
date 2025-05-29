@@ -29,15 +29,7 @@ public class MatchService implements CRUDService<Match> {
     }
 
     @Override
-    public Match create(Match item) {
-        matchRepository.save(item);
-        return item;
-    }
-
-    @Override
-    public Match update(Match item) {
-        Match match1 = matchRepository.findById(item.getId()).orElseThrow();
-        item.setGoals(match1.getGoals());
+    public Match save(Match item) {
         matchRepository.save(item);
         return item;
     }

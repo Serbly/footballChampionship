@@ -31,18 +31,8 @@ public class ChampionshipService implements CRUDService<Championship> {
     }
 
     @Override
-    public Championship create(Championship item) {
-        log.info("Create");
-        repository.save(item);
-        return item;
-    }
-
-    @Override
-    public Championship update(Championship item) {
-        log.info("Update");
-        Championship championship = repository.findById(item.getId()).orElseThrow();
-        item.setStandings(championship.getStandings());
-        item.setMatches(championship.getMatches());
+    public Championship save(Championship item) {
+        log.info("Save");
         repository.save(item);
         return item;
     }

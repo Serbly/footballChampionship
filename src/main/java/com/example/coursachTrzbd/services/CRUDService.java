@@ -5,7 +5,6 @@ import java.util.List;
 public interface CRUDService<T> {
     T getById(Integer id);
     List<T> getAll();
-    T create(T item);
-    T update(T item);
+    T save(T item);
     void delete(Integer id);
 }

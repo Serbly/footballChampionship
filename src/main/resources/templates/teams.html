@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Команды</title></head>
 <body>
-
+<h2>Список команд</h2>
+<ul>
+    <li th:each="team : ${teams}" th:text="${team.name + ' (' + team.city + ')'}"></li>
+</ul>
 </body>
 </html>

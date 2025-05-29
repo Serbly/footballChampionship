@@ -2,9 +2,7 @@ package com.example.coursachTrzbd.services;
 
 import com.example.coursachTrzbd.entity.Standing;
 import com.example.coursachTrzbd.error.NotFoundException;
-import com.example.coursachTrzbd.repositories.ChampionshipRepository;
 import com.example.coursachTrzbd.repositories.StandingRepository;
-import com.example.coursachTrzbd.repositories.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,8 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StandingService implements CRUDService<Standing> {
     private final StandingRepository standingRepository;
-    private final TeamRepository teamRepository;
-    private final ChampionshipRepository championshipRepository;
 
     @Override
     public Standing getById(Integer id) {
@@ -35,15 +31,8 @@ public class StandingService implements CRUDService<Standing> {
     }
 
     @Override
-    public Standing create(Standing item) {
-        log.info("Create");
-        standingRepository.save(item);
-        return item;
-    }
-
-    @Override
-    public Standing update(Standing item) {
-        log.info("Update");
+    public Standing save(Standing item) {
+        log.info("Save");
         standingRepository.save(item);
         return item;
     }
