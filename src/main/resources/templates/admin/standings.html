@@ -3,10 +3,10 @@
 <head><meta charset="UTF-8"><title>Standings</title></head>
 <body>
 <h1>Standings Management</h1>
-<table>
+<table border="1">
     <tr><th>Championship</th><th>Team</th><th>Matches played</th><th>Wins</th><th>Draws</th><th>Losses</th><th>Points</th><th>Actions</th></tr>
     <tr th:each="standing : ${standings}">
-        <td th:text="${standing.championship}">Championship</td>
+        <td th:text="${standing.championship.name}">Championship</td>
         <td th:text="${standing.team.name}">Team</td>
         <td th:text="${standing.matchesPlayed}">Matches played</td>
         <td th:text="${standing.wins}">Wins</td>
@@ -15,7 +15,9 @@
         <td th:text="${standing.points}">Points</td>
         <td>
             <a th:href="@{'/admin/standings/edit/' + ${standing.id}}">Edit</a>
-            <a th:href="@{'/admin/standings/delete/' + ${standing.id}}">Delete</a>
+            <form th:action="@{'/admin/standings/delete/' + ${standing.id}}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Are you sure?');">Delete</button>
+            </form>
         </td>
     </tr>
 </table>

@@ -2,8 +2,15 @@ package com.example.coursachTrzbd.repositories;
 
 import com.example.coursachTrzbd.entity.Championship;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ChampionshipRepository extends JpaRepository<Championship, Integer> {
+    @Query("SELECT DISTINCT c.season FROM Championship c WHERE c.id = :id")
+    List<String> findDistinctSeasonsByChampionshipId(@Param("id") Integer id);
+
 }

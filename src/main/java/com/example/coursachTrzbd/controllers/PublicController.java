@@ -1,61 +1,78 @@
 package com.example.coursachTrzbd.controllers;
 
+import com.example.coursachTrzbd.entity.*;
 import com.example.coursachTrzbd.services.*;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
-@RequiredArgsConstructor
 public class PublicController {
+    public PublicController(MatchService matchService, StandingService standingService, TeamService teamService, PlayerService playerService, ChampionshipService championshipService, GoalService goalService) {
+        this.matchService = matchService;
+        this.standingService = standingService;
+        this.teamService = teamService;
+        this.playerService = playerService;
+        this.championshipService = championshipService;
+        this.goalService = goalService;
+    }
+
     private final MatchService matchService;
     private final StandingService standingService;
     private final TeamService teamService;
     private final PlayerService playerService;
     private final ChampionshipService championshipService;
-    private final CoachService coachService;
+    private final GoalService goalService;
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        model.addAttribute("championships", championshipService.getAll());
         return "index";
     }
+    // Выбор сезона (с фильтром)
+    @GetMapping("/standings/{id}")
+    public String standingsByChampionship(
+            @PathVariable Integer id,
+            @RequestParam(name = "season", required = false) String season,
+            Model model) {
 
-    @GetMapping("/matches")
-    public String viewMatches(Model model) {
-        model.addAttribute("matches", matchService.getAll());
-        return "matches";
-    }
+        Championship championship = championshipService.getById(id);
+        List<String> availableSeasons = championshipService.findSeasonsByChampionship(id);
 
-    @GetMapping("/standings")
-    public String viewStandings(Model model) {
-        model.addAttribute("standings", standingService.getAll());
+        String selectedSeason = (season != null) ? season : availableSeasons.get(0);
+
+        List<Standing> standings = standingService.findByChampionshipAndSeason(id, selectedSeason);
+        List<Object[]> topScorers = goalService.findTopScorersByChampionshipAndSeason(id, selectedSeason);
+
+        model.addAttribute("championship", championship);
+        model.addAttribute("seasons", availableSeasons);
+        model.addAttribute("selectedSeason", selectedSeason);
+        model.addAttribute("standings", standings);
+        model.addAttribute("topScorers", topScorers);
+
         return "standings";
     }
 
-    @GetMapping("/teams")
-    public String viewTeams(Model model) {
-        model.addAttribute("teams", teamService.getAll());
+    @GetMapping("/team/{id}")
+    public String teamDetails(
+            @PathVariable Integer id,
+            @RequestParam(name = "season") String season,
+            Model model) {
+
+        Team team = teamService.getById(id);
+        List<Player> players = playerService.findByTeamId(id);
+        List<Match> matches = matchService.findByTeamAndSeason(id, season);
+
+        model.addAttribute("team", team);
+        model.addAttribute("season", season);
+        model.addAttribute("players", players);
+        model.addAttribute("matches", matches);
+
         return "teams";
-    }
-
-    @GetMapping("/players")
-    public String viewPlayers(Model model) {
-        model.addAttribute("players", playerService.getAll());
-        return "players";
-    }
-
-    @GetMapping("/championships")
-    public String viewChampionships(Model model) {
-        model.addAttribute("championships", championshipService.getAll());
-        return "championships";
-    }
-
-    @GetMapping("/coaches")
-    public String viewCoaches(Model model) {
-        model.addAttribute("coaches", coachService.getAll());
-        return "coaches";
     }
 
     @GetMapping("/login")

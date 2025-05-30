@@ -5,11 +5,15 @@
 <h1>Add Standing</h1>
 <form th:action="@{/admin/standings/add}" th:object="${standing}" method="post">
     <label>Championship:</label>
-    <select th:field="*{championship}" th:each="championship : ${championships}" th:value="${championship}" th:text="${championship.name}"></select>
+    <select th:field="*{championship}">
+        <option th:each="championship : ${championships}" th:value="${championship}" th:text="${championship.name}"></option>
+    </select>
     <div th:if="${#fields.hasErrors('championship')}" th:errors="*{championship}"></div>
     <br>
     <label>Team:</label>
-    <select th:field="*{team}" th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></select>
+    <select th:field="*{team}">
+        <option th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></option>
+    </select>
     <div th:if="${#fields.hasErrors('team')}" th:errors="*{team}"></div>
     <br>
     <label>Matches Played:</label>

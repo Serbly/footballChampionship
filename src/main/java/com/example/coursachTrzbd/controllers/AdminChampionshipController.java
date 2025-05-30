@@ -3,7 +3,6 @@ package com.example.coursachTrzbd.controllers;
 import com.example.coursachTrzbd.entity.Championship;
 import com.example.coursachTrzbd.services.ChampionshipService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,8 +10,11 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/championships")
-@RequiredArgsConstructor
 public class AdminChampionshipController {
+
+    public AdminChampionshipController(ChampionshipService championshipService) {
+        this.championshipService = championshipService;
+    }
 
     private final ChampionshipService championshipService;
 

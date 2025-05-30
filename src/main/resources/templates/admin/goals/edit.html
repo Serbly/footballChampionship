@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Add Goal</title></head>
+<body>
+<h1>Add Goal</h1>
+<form th:action="@{/admin/goals/add}" th:object="${goal}" method="post">
+  <input type="hidden" th:field="*{id}" />
+  <label>Match:</label>
+  <select th:field="*{match}">
+    <option th:each="match : ${matches}" th:value="${match}" th:text="${match.homeTeam} + ':' + ${match.awayTeam}"></option>
+  </select>
+  <div th:if="${#fields.hasErrors('match')}" th:errors="*{match}"></div>
+  <br>
+  <label>Player</label>
+  <select th:field="*{player}">
+    <option th:each="player : ${players}" th:value="${player}" th:text="${player.name}"></option>
+  </select>
+  <div th:if="${#fields.hasErrors('player')}" th:errors="*{player}"></div>
+  <br>
+  <label>Minute:</label>
+  <input type="number" th:field="*{minute}" />
+  <div th:if="${#fields.hasErrors('minute')}" th:errors="*{minute}"></div>
+  <br>
+  <label>Type:</label>
+  <input type="text" th:field="*{type}" />
+  <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div>
+  <br>
+  <button type="submit">Save</button>
+</form>
+<a href="/admin/goals">Back</a>
+</body>
+</html>

@@ -4,15 +4,16 @@ import com.example.coursachTrzbd.entity.Match;
 import com.example.coursachTrzbd.error.NotFoundException;
 import com.example.coursachTrzbd.repositories.MatchRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@Slf4j
-@RequiredArgsConstructor
 public class MatchService implements CRUDService<Match> {
+    public MatchService(MatchRepository matchRepository) {
+        this.matchRepository = matchRepository;
+    }
+
     private final MatchRepository matchRepository;
 
     @Override
@@ -22,6 +23,11 @@ public class MatchService implements CRUDService<Match> {
         }
         return matchRepository.findById(id).orElseThrow();
     }
+
+    public List<Match> findByTeamAndSeason(Integer teamId, String season) {
+        return matchRepository.findByTeamAndSeason(teamId, season);
+    }
+
 
     @Override
     public List<Match> getAll() {

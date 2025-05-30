@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Тренеры</title></head>
+<head><title>Coaches</title></head>
 <body>
-<h2>Список тренеров</h2>
+<h2>Coaches</h2>
 <table border="1">
-    <tr><th>Имя</th><th>Команда</th><th>Национальность</th><th>Дата рождения</th></tr>
+    <tr><th>Name</th><th>Nationality</th><th>Birthdate</th></tr>
     <tr th:each="c : ${coaches}">
         <td th:text="${c.name}"></td>
-        <td th:text="${c.team.name}"></td>
         <td th:text="${c.nationality}"></td>
         <td th:text="${c.birthdate}"></td>
     </tr>
 </table>
-<a href="/">Back to main menu</a>
+<a href="/">Back</a>
 </body>
 </html>

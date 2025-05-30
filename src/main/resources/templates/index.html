@@ -1,22 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
-    <title>Главная страница - Футбольный чемпионат</title>
+    <title>Football Championships</title>
 </head>
 <body>
-<h1>Добро пожаловать в систему футбольных чемпионатов</h1>
-<p>Выберите раздел для просмотра информации:</p>
-<nav>
-    <a th:href="@{/matches}">Матчи</a>
-    <a th:href="@{/standings}">Таблицы</a>
-    <a th:href="@{/teams}">Команды</a>
-    <a th:href="@{/players}">Игроки</a>
-    <a th:href="@{/championships}">Чемпионаты</a>
-    <a th:href="@{/coaches}">Тренеры</a>
-</nav>
-<p style="margin-top: 50px;">
-    <a th:href="@{/admin/dashboard}">Войти в систему</a>
-</p>
+<h1>Select championship:</h1>
+<ul>
+    <li th:each="c : ${championships}">
+        <form th:action="@{/standings/{id}(id=${c.id})}" method="get">
+            <button type="submit" th:text="${c.name}"></button>
+        </form>
+    </li>
+</ul>
+<a th:href="@{/login}">Log in</a>
 </body>
 </html>

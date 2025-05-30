@@ -1,9 +1,11 @@
 package com.example.coursachTrzbd.controllers;
 
 import com.example.coursachTrzbd.entity.Standing;
+import com.example.coursachTrzbd.services.ChampionshipService;
 import com.example.coursachTrzbd.services.StandingService;
+import com.example.coursachTrzbd.services.TeamService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,10 +13,17 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/standings")
-@RequiredArgsConstructor
 public class AdminStandingController {
 
     private final StandingService standingService;
+    private final ChampionshipService championshipService;
+    private final TeamService teamService;
+
+    public AdminStandingController(StandingService standingService, ChampionshipService championshipService, TeamService teamService) {
+        this.standingService = standingService;
+        this.championshipService = championshipService;
+        this.teamService = teamService;
+    }
 
     @GetMapping
     public String listStandings(Model model) {
@@ -25,6 +34,8 @@ public class AdminStandingController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("standing", new Standing());
+        model.addAttribute("championships", championshipService.getAll());
+        model.addAttribute("teams", teamService.getAll());
         return "admin/standings/add";
     }
 
@@ -42,13 +53,16 @@ public class AdminStandingController {
     public String showEditForm(@PathVariable Integer id, Model model) {
         Standing standing = standingService.getById(id);
         model.addAttribute("standing", standing);
+        model.addAttribute("championships", championshipService.getAll());
+        model.addAttribute("teams", teamService.getAll());
         return "admin/standings/edit";
     }
 
     @PostMapping("/edit")
     public String updateStanding(@Valid @ModelAttribute("standing") Standing standing,
-                                 BindingResult bindingResult) {
+                                 BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("standings", standingService.getAll());
             return "admin/standings/edit";
         }
         standingService.save(standing);

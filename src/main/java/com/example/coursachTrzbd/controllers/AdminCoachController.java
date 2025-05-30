@@ -2,9 +2,7 @@ package com.example.coursachTrzbd.controllers;
 
 import com.example.coursachTrzbd.entity.Coach;
 import com.example.coursachTrzbd.services.CoachService;
-import com.example.coursachTrzbd.services.TeamService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,11 +10,12 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/coaches")
-@RequiredArgsConstructor
 public class AdminCoachController {
+    public AdminCoachController(CoachService coachService) {
+        this.coachService = coachService;
+    }
 
     private final CoachService coachService;
-    private final TeamService teamService;
 
     @GetMapping
     public String listCoaches(Model model) {
@@ -27,7 +26,6 @@ public class AdminCoachController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("coach", new Coach());
-        model.addAttribute("teams", teamService.getAll());
         return "admin/coaches/add";
     }
 
@@ -35,7 +33,6 @@ public class AdminCoachController {
     public String addCoach(@Valid @ModelAttribute("coach") Coach coach,
                            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            model.addAttribute("teams", teamService.getAll());
             return "admin/coaches/add";
         }
         coachService.save(coach);

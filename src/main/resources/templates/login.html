@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Вход</title></head>
+<head><title>Log in</title></head>
 <body>
-<h2>Авторизация администратора</h2>
+<h2>Administrator Authorization</h2>
 <form th:action="@{/login}" method="post">
-    <label>Логин: <input type="text" name="username" /></label><br>
-    <label>Пароль: <input type="password" name="password" /></label><br>
-    <button type="submit">Войти</button>
+    <label>Login: <input type="text" name="username" /></label><br>
+    <label>Password: <input type="password" name="password" /></label><br>
+    <button type="submit">Login</button>
 </form>
 </body>
 </html>

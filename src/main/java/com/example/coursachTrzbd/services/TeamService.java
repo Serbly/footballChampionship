@@ -3,16 +3,16 @@ package com.example.coursachTrzbd.services;
 import com.example.coursachTrzbd.entity.Team;
 import com.example.coursachTrzbd.error.NotFoundException;
 import com.example.coursachTrzbd.repositories.TeamRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@Slf4j
-@RequiredArgsConstructor
 public class TeamService implements CRUDService<Team> {
+    public TeamService(TeamRepository teamRepository) {
+        this.teamRepository = teamRepository;
+    }
+
     private final TeamRepository teamRepository;
 
     @Override
@@ -21,6 +21,10 @@ public class TeamService implements CRUDService<Team> {
             throw new NotFoundException("Team with id " + id + " not found");
         }
         return teamRepository.findById(id).orElseThrow();
+    }
+
+    public Team findById(Integer id) {
+        return teamRepository.findById(id).orElse(null);
     }
 
     @Override

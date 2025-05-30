@@ -7,11 +7,11 @@
   <input type="hidden" th:field="*{id}" />
   <label>Championship:</label>
   <select th:field="*{championship}">
-    <option th:each="champ : ${championships}" th:value="${champ}" th:text="${champ.name}"></option>
+    <option th:each="championship : ${championships}" th:value="${championship.id}" th:text="${championship.name}"></option>
   </select><br>
   <label>Team:</label>
   <select th:field="*{team}">
-    <option th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></option>
+    <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
   </select><br>
   <label>Matches Played:</label>
   <input type="number" th:field="*{matchesPlayed}" /><br>

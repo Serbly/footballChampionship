@@ -6,16 +6,16 @@
 <form th:action="@{/admin/matches/edit}" th:object="${match}" method="post">
     <input type="hidden" th:field="*{id}" />
     <label>Championship:</label>
-    <select th:field="*{championship}" required>
-        <option th:each="champ : ${championships}" th:value="${champ}" th:text="${champ.name}"></option>
+    <select th:field="*{championship.id}" required>
+        <option th:each="champ : ${championships}" th:value="${champ.id}" th:text="${champ.name}"></option>
     </select><br>
     <label>Home Team:</label>
-    <select th:field="*{homeTeam}" required>
-        <option th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></option>
+    <select th:field="*{homeTeam.id}" required>
+        <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
     </select><br>
     <label>Away Team:</label>
-    <select th:field="*{awayTeam}" required>
-        <option th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></option>
+    <select th:field="*{awayTeam.id}" required>
+        <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
     </select><br>
     <label>Date:</label>
     <input type="datetime-local" th:field="*{date}" /><br>

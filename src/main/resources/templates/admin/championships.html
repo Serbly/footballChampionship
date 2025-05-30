@@ -3,7 +3,7 @@
 <head><meta charset="UTF-8"><title>Championships</title></head>
 <body>
 <h1>Championship Management</h1>
-<table>
+<table border="1">
     <tr><th>Name</th><th>Season</th><th>Actions</th></tr>
     <tr th:each="championship : ${championships}">
         <td th:text="${championship.name}">Championship</td>

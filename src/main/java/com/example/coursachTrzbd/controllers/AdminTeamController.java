@@ -1,9 +1,10 @@
 package com.example.coursachTrzbd.controllers;
 
 import com.example.coursachTrzbd.entity.Team;
+import com.example.coursachTrzbd.services.CoachService;
 import com.example.coursachTrzbd.services.TeamService;
 import jakarta.validation.Valid;
-import lombok.RequiredArgsConstructor;
+import org.springframework.boot.Banner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,10 +12,15 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/teams")
-@RequiredArgsConstructor
 public class AdminTeamController {
 
     private final TeamService teamService;
+    private final CoachService coachService;
+
+    public AdminTeamController(TeamService teamService, CoachService coachService) {
+        this.teamService = teamService;
+        this.coachService = coachService;
+    }
 
     @GetMapping
     public String listTeams(Model model) {
@@ -25,6 +31,7 @@ public class AdminTeamController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("team", new Team());
+        model.addAttribute("coaches", coachService.getAll());
         return "admin/teams/add";
     }
 
@@ -42,13 +49,15 @@ public class AdminTeamController {
     public String showEditForm(@PathVariable Integer id, Model model) {
         Team team = teamService.getById(id);
         model.addAttribute("team", team);
+        model.addAttribute("coaches", coachService.getAll());
         return "admin/teams/edit";
     }
 
     @PostMapping("/edit")
     public String updateTeam(@Valid @ModelAttribute("team") Team team,
-                             BindingResult bindingResult) {
+                             BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("teams", teamService.getAll());
             return "admin/teams/edit";
         }
         teamService.save(team);

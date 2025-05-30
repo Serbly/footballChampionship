@@ -2,28 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Матчи</title>
+    <title>Matches</title>
 </head>
 <body>
-<h2>Матчи</h2>
+<h2>Matches</h2>
 <table border="1">
     <tr>
-        <th>Чемпионат</th>
-        <th>Дата</th>
-        <th>Хозяева</th>
-        <th>Гости</th>
-        <th>Стадион</th>
-        <th>Счет</th>
+        <th>Championship</th>
+        <th>Date</th>
+        <th>Home team</th>
+        <th>Away team</th>
+        <th>Stadium</th>
+        <th>Score</th>
     </tr>
     <tr th:each="match : ${matches}">
-        <td th:text="${match.championship}"></td>
+        <td th:text="${match.championship.name}"></td>
         <td th:text="${match.date}"></td>
-        <td th:text="${match.homeTeam}"></td>
-        <td th:text="${match.awayTeam}"></td>
+        <td th:text="${match.homeTeam.name}"></td>
+        <td th:text="${match.awayTeam.name}"></td>
         <td th:text="${match.stadium}"></td>
         <td th:text="${match.score}"></td>
     </tr>
 </table>
-<a href="/">Back to main menu</a>
+<a href="/">Back</a>
 </body>
 </html>

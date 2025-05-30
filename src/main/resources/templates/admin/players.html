@@ -3,7 +3,7 @@
 <head><meta charset="UTF-8"><title>Players</title></head>
 <body>
 <h1>Player Management</h1>
-<table>
+<table border="1">
     <tr>
         <th>Name</th><th>Number</th><th>Position</th><th>Team</th><th>Nationality</th><th>Birthdate</th><th>Actions</th>
     </tr>
@@ -16,7 +16,9 @@
         <td th:text="${player.birthdate}">Birthdate</td>
         <td>
             <a th:href="@{'/admin/players/edit/' + ${player.id}}">Edit</a>
-            <a th:href="@{'/admin/players/delete/' + ${player.id}}">Delete</a>
+            <form th:action="@{'/admin/players/delete/' + ${player.id}}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Are you sure?');">Delete</button>
+            </form>
         </td>
     </tr>
 </table>

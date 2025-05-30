@@ -1,16 +1,12 @@
 package com.example.coursachTrzbd.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
-import lombok.Data;
-import org.antlr.v4.runtime.misc.NotNull;
 
 import java.util.List;
 
 @Entity
 @Table(name = "Championships")
-@Data
 public class Championship {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,4 +23,44 @@ public class Championship {
 
     @OneToMany(mappedBy = "championship", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Standing> standings;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public @NotEmpty(message = "Название не может быть пустым") String getName() {
+        return name;
+    }
+
+    public void setName(@NotEmpty(message = "Название не может быть пустым") String name) {
+        this.name = name;
+    }
+
+    public @NotEmpty(message = "Укажите сезон") String getSeason() {
+        return season;
+    }
+
+    public void setSeason(@NotEmpty(message = "Укажите сезон") String season) {
+        this.season = season;
+    }
+
+    public List<Match> getMatches() {
+        return matches;
+    }
+
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
+    }
+
+    public List<Standing> getStandings() {
+        return standings;
+    }
+
+    public void setStandings(List<Standing> standings) {
+        this.standings = standings;
+    }
 }

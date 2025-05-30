@@ -2,6 +2,8 @@ package com.example.coursachTrzbd.controllers;
 
 import com.example.coursachTrzbd.entity.Goal;
 import com.example.coursachTrzbd.services.GoalService;
+import com.example.coursachTrzbd.services.MatchService;
+import com.example.coursachTrzbd.services.PlayerService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -11,8 +13,16 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/admin/goals")
-@RequiredArgsConstructor
 public class AdminGoalController {
+
+    private final MatchService matchService;
+    private final PlayerService playerService;
+
+    public AdminGoalController(GoalService goalService, MatchService matchService, PlayerService playerService) {
+        this.goalService = goalService;
+        this.matchService = matchService;
+        this.playerService = playerService;
+    }
 
     private final GoalService goalService;
 
@@ -25,6 +35,8 @@ public class AdminGoalController {
     @GetMapping("/add")
     public String showAddForm(Model model) {
         model.addAttribute("goal", new Goal());
+        model.addAttribute("matches", matchService.getAll());
+        model.addAttribute("players", playerService.getAll());
         return "admin/goals/add";
     }
 
@@ -42,6 +54,8 @@ public class AdminGoalController {
     public String showEditForm(@PathVariable Integer id, Model model) {
         Goal goal = goalService.getById(id);
         model.addAttribute("goal", goal);
+        model.addAttribute("matches", matchService.getAll());
+        model.addAttribute("players", playerService.getAll());
         return "admin/goals/edit";
     }
 

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Игроки</title></head>
+<head><title>Players</title></head>
 <body>
-<h2>Список игроков</h2>
+<h2>Players</h2>
 <table border="1">
-    <tr><th>Имя</th><th>Позиция</th><th>Команда</th><th>Номер</th><th>Национальность</th><th>Дата рождения</th></tr>
+    <tr><th>Name</th><th>Position</th><th>Team</th><th>Number</th><th>Nationality</th><th>Birthdate</th></tr>
     <tr th:each="p : ${players}">
         <td th:text="${p.name}"></td>
         <td th:text="${p.position}"></td>
@@ -14,6 +14,6 @@
         <td th:text="${p.birthdate}"></td>
     </tr>
 </table>
-<a href="/">Back to main menu</a>
+<a href="/">Back</a>
 </body>
 </html>

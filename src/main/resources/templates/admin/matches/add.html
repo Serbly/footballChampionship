@@ -5,19 +5,25 @@
 <h1>Add Match</h1>
 <form th:action="@{/admin/matches/add}" th:object="${match}" method="post">
     <label>Championship:</label>
-    <select th:field="*{championship}" th:each="championship : ${championships}" th:value="${championship.id}" th:text="${championship.name}"></select>
+    <select th:field="*{championship.id}">
+        <option th:each="championship : ${championships}" th:value="${championship.id}" th:text="${championship.name}"></option>
+    </select>
     <div th:if="${#fields.hasErrors('championship')}" th:errors="*{championship}"></div>
     <br>
     <label>Home Team:</label>
-    <select th:field="*{homeTeam}" th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></select>
+    <select th:field="*{homeTeam.id}">
+        <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
+    </select>
     <div th:if="${#fields.hasErrors('homeTeam')}" th:errors="*{homeTeam}"></div>
     <br>
     <label>Away Team:</label>
-    <select th:field="*{awayTeam}" th:each="team : ${teams}" th:value="${team}" th:text="${team.name}"></select>
+    <select th:field="*{awayTeam.id}">
+        <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
+    </select>
     <div th:if="${#fields.hasErrors('awayTeam')}" th:errors="*{awayTeam}"></div>
     <br>
     <label>Date:</label>
-    <input type="datetime-local" th:field="*{date}" />
+    <input type="date" th:field="*{date}" />
     <div th:if="${#fields.hasErrors('date')}" th:errors="*{date}"></div>
     <br>
     <label>Score:</label>

@@ -1,18 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><title>Teams</title></head>
+<head><title th:text="${team.name} + ' — season ' + ${season}"></title></head>
 <body>
-<h2>Teams</h2>
+<h2 th:text="${team.name} + ' (' + team.city + ')'"></h2>
+<h3 th:text="'Season: ' + ${season}"></h3>
+
+<h3>Players</h3>
+<ul>
+    <li th:each="p : ${players}" th:text="${p.name} + ' — ' + {$p.position} + ' — ' + ${p.number}"></li>
+</ul>
+
+<h3>Matches</h3>
 <table border="1">
-    <tr><th>Name</th><th>City</th><th>Stadium</th><th>Coach</th></tr>
-    <tr th:each="t : ${teams}">
-        <td th:text="${t.name}"></td>
-        <td th:text="${t.city}"></td>
-        <td th:text="${t.stadium}"></td>
-        <td th:text="${t.coach.name}"></td>
-        <td th:each="p : ${t.players}" th:text="${p.name}"></td>
+    <tr><th>Date</th><th>Match</th><th>Score</th></tr>
+    <tr th:each="m : ${matches}">
+        <td th:text="${m.date}"></td>
+        <td th:text="${m.homeTeam.name} + ':' + ${m.awayTeam.name}"></td>
+        <td th:text="${m.score}"></td>
     </tr>
 </table>
-<a href="/">Back to main menu</a>
+
+<a href="/" th:href="@{/}">Back</a>
 </body>
 </html>

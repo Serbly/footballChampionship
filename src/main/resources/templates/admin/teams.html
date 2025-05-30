@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Team Management</h1>
-<table>
+<table border="1">
     <tr>
         <th>Name</th>
         <th>City</th>
@@ -21,7 +21,9 @@
         <td th:text="${team.coach.name}">Coach</td>
         <td>
             <a th:href="@{'/admin/teams/edit/' + ${team.id}}">Edit</a>
-            <a th:href="@{'/admin/teams/delete/' + ${team.id}}">Delete</a>
+            <form th:action="@{'/admin/teams/delete/' + ${team.id}}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Are you sure?');">Delete</button>
+            </form>
         </td>
     </tr>
 </table>

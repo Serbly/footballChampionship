@@ -17,7 +17,9 @@
     <div th:if="${#fields.hasErrors('stadium')}" th:errors="*{stadium}"></div>
     <br>
     <label>Coach:</label>
-    <select th:field="*{coach}" th:each="coach : ${coaches}" th:value="${coach}" th:text="${coach.name}"></select>
+    <select th:field="*{coach.id}" >
+        <option th:each="coach : ${coaches}" th:value="${coach.id}" th:text="${coach.name}"></option>
+    </select>
     <div th:if="${#fields.hasErrors('coach')}" th:errors="*{coach}"></div>
     <br>
     <button type="submit">Save</button>

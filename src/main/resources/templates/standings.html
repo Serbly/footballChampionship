@@ -1,10 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+<head><title>Standings</title></head>
 <body>
+<h2 th:text="'Championship: ' + ${championship.name}"></h2>
 
+<form method="get" th:action="@{/standings/{id}(id=${championship.id})}">
+    <label>Сезон:
+        <select name="season">
+            <option th:each="s : ${seasons}" th:value="${s}" th:text="${s}"
+                    th:selected="${s == selectedSeason}"></option>
+        </select>
+    </label>
+    <button type="submit">Показать</button>
+</form>
+
+<h3>Standings (Season: <span th:text="${selectedSeason}"></span>)</h3>
+<table border="1">
+    <tr><th>Team</th><th>M</th><th>W</th><th>D</th><th>L</th><th>P</th></tr>
+    <tr th:each="s : ${standings}">
+        <td>
+            <a th:href="@{/team/{id}(id=${s.team.id})}"
+               th:text="${s.team.name}"></a>
+        </td>
+        <td th:text="${s.matchesPlayed}"></td>
+        <td th:text="${s.wins}"></td>
+        <td th:text="${s.draws}"></td>
+        <td th:text="${s.losses}"></td>
+        <td th:text="${s.points}"></td>
+    </tr>
+</table>
+
+<h3>Top scorers</h3>
+<table border="1">
+    <tr><th>Player</th><th>Goals</th></tr>
+    <tr th:each="row : ${topScorers}">
+        <td th:text="${row[0]}"></td>
+        <td th:text="${row[1]}"></td>
+    </tr>
+</table>
+
+<a href="/">Back</a>
 </body>
 </html>
