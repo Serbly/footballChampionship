@@ -1,29 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Matches</title>
+    <title>Match</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<h2>Matches</h2>
-<table border="1">
-    <tr>
-        <th>Championship</th>
-        <th>Date</th>
-        <th>Home team</th>
-        <th>Away team</th>
-        <th>Stadium</th>
-        <th>Score</th>
-    </tr>
-    <tr th:each="match : ${matches}">
-        <td th:text="${match.championship.name}"></td>
-        <td th:text="${match.date}"></td>
-        <td th:text="${match.homeTeam.name}"></td>
-        <td th:text="${match.awayTeam.name}"></td>
-        <td th:text="${match.stadium}"></td>
-        <td th:text="${match.score}"></td>
-    </tr>
-</table>
-<a href="/">Back</a>
+<h2 th:text="${match.homeTeam.name + ':' + match.awayTeam.name}"></h2>
+<p>
+    Дата: <span th:text="${match.date}"></span><br>
+    Счёт: <span th:text="${match.score}"></span>
+</p>
+
+<h3>Goals</h3>
+<ul>
+    <li th:each="g : ${match.goals}" th:text="${g.minute + ' мин - ' + g.player.name + ' (' + g.type + ')'}"></li>
+</ul>
+
+<a href="javascript:history.back()">Back</a>
 </body>
 </html>

@@ -11,16 +11,13 @@ import java.util.List;
 @Repository
 public interface GoalRepository extends JpaRepository<Goal, Integer> {
     @Query("""
-    SELECT g.player.name, COUNT(g.id) as total
+    SELECT g.player.name, g.player.team.name, COUNT(g.id) as total
     FROM Goal g
     WHERE g.match.championship.id = :championshipId
       AND g.match.championship.season = :season
-    GROUP BY g.player.name
+    GROUP BY g.player.name, g.player.team.name
     ORDER BY total DESC
     """)
-    List<Object[]> findTopScorersByChampionshipAndSeason(
-            @Param("championshipId") Integer championshipId,
-            @Param("season") String season
-    );
-
+    List<Object[]> findTopScorersByChampionshipAndSeason(@Param("championshipId") Integer championshipId,
+                                                         @Param("season") String season);
 }

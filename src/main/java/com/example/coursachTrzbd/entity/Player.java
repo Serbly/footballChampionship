@@ -8,6 +8,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.List;
 
 @Entity
@@ -42,6 +43,10 @@ public class Player {
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Goal> goals;
+
+    public int getAge() {
+        return Period.between(this.birthdate, LocalDate.now()).getYears();
+    }
 
     public Integer getId() {
         return id;

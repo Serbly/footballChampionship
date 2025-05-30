@@ -33,7 +33,7 @@ public class PublicController {
         model.addAttribute("championships", championshipService.getAll());
         return "index";
     }
-    // Выбор сезона (с фильтром)
+
     @GetMapping("/standings/{id}")
     public String standingsByChampionship(
             @PathVariable Integer id,
@@ -73,6 +73,13 @@ public class PublicController {
         model.addAttribute("matches", matches);
 
         return "teams";
+    }
+
+    @GetMapping("/match/{id}")
+    public String viewMatch(@PathVariable Integer id, Model model) {
+        Match match = matchService.getById(id);
+        model.addAttribute("match", match);
+        return "matches";
     }
 
     @GetMapping("/login")
