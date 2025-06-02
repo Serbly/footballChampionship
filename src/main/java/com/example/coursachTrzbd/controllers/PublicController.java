@@ -30,7 +30,7 @@ public class PublicController {
 
     @GetMapping("/")
     public String index(Model model) {
-        model.addAttribute("championships", championshipService.getAll());
+        model.addAttribute("championships", championshipService.getUniqueChampionships());
         return "index";
     }
 
@@ -41,7 +41,8 @@ public class PublicController {
             Model model) {
 
         Championship championship = championshipService.getById(id);
-        List<String> availableSeasons = championshipService.findSeasonsByChampionship(id);
+
+        List<String> availableSeasons = championshipService.findSeasonsByChampionshipName(championship.getName());
 
         String selectedSeason = (season != null) ? season : availableSeasons.get(0);
 
@@ -56,6 +57,7 @@ public class PublicController {
 
         return "standings";
     }
+
 
     @GetMapping("/team/{id}")
     public String teamDetails(

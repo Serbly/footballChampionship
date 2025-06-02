@@ -6,7 +6,9 @@ import com.example.coursachTrzbd.repositories.ChampionshipRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ChampionshipService implements CRUDService<Championship> {
@@ -24,9 +26,18 @@ public class ChampionshipService implements CRUDService<Championship> {
         return repository.findById(id).orElseThrow();
     }
 
-    public List<String> findSeasonsByChampionship(Integer championshipId) {
-        return repository.findDistinctSeasonsByChampionshipId(championshipId);
+    public List<String> findSeasonsByChampionshipName(String name) {
+        return repository.findDistinctSeasonsByChampionshipName(name);
     }
+
+    public List<Championship> getUniqueChampionships() {
+        return repository.findAll().stream()
+                .collect(Collectors.collectingAndThen(
+                        Collectors.toMap(Championship::getName, c -> c, (c1, c2) -> c1),
+                        map -> new ArrayList<>(map.values())
+                ));
+    }
+
 
     @Override
     public List<Championship> getAll() {

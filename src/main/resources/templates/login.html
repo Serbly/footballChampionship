@@ -8,25 +8,40 @@
 </head>
 <body>
 
-<div class="container mt-5" style="max-width: 400px;">
-    <h2 class="text-center mb-4">Administrator Login</h2>
+<nav>
+    <a class="logo" href="#">Championships</a>
+    <a th:href="@{/}">Back to previous</a>
+</nav>
+
+<main>
+    <h2>Administrator Login</h2>
 
     <form th:action="@{/login}" method="post">
-        <div class="mb-3">
-            <label for="username" class="form-label">Login</label>
-            <input type="text" id="username" name="username" class="form-control" required/>
+        <div>
+            <label for="username">Login</label>
+            <input type="text" id="username" name="username" required/>
         </div>
 
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" id="password" name="password" class="form-control" required/>
+        <div>
+            <label for="password" >Password</label>
+            <input type="password" id="password" name="password" required/>
         </div>
 
-        <div class="d-grid">
-            <button type="submit" class="btn btn-primary">Login</button>
-        </div>
+        <button type="submit">Log in</button>
+
     </form>
-</div>
+</main >
 
+<footer>
+    <p class="copy"></p>
+</footer>
+
+
+<script>
+    const date = new Date()
+    const year = date.getFullYear()
+    const pEl = document.querySelector('.copy')
+    pEl.textContent = `© ${year} Football App`
+</script>
 </body>
 </html>

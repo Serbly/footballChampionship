@@ -1,24 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>Goals</title></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Goals Management</title>
+    <link rel="stylesheet" th:href="@{/css/tables.css}">
+</head>
 <body>
-<h1>Goal Management</h1>
-<table border="1">
-    <tr><th>Match</th><th>Player</th><th>Minute</th><th>Type</th><th>Actions</th></tr>
-    <tr th:each="goal : ${goals}">
-        <td th:text="${goal.match.homeTeam.name} + ':' + ${goal.match.awayTeam.name}">Match</td>
-        <td th:text="${goal.player.name}">Player</td>
-        <td th:text="${goal.minute}">Minute</td>
-        <td th:text="${goal.type}">Type</td>
-        <td>
-            <a th:href="@{'/admin/goals/edit/' + ${goal.id}}">Edit</a>
-            <form th:action="@{'/admin/goals/delete/' + ${goal.id}}" method="post" style="display:inline;">
-                <button type="submit" onclick="return confirm('Are you sure?');">Delete</button>
-            </form>
-        </td>
-    </tr>
-</table>
-<a href="/admin/goals/add">Add Goal</a> |
-<a href="/admin/dashboard">Back to Dashboard</a>
+<h1>Goals Management</h1>
+
+<div class="card">
+    <table>
+        <thead>
+        <tr>
+            <th>Match</th>
+            <th>Player</th>
+            <th>Minute</th>
+            <th>Type</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="g : ${goals}">
+            <td th:text="${g.match.homeTeam.name} + ':' + ${g.match.awayTeam.name}"></td>
+            <td th:text="${g.player.name}"></td>
+            <td th:text="${g.minute}"></td>
+            <td th:text="${g.type}"></td>
+            <td>
+                <a th:href="@{'/admin/goals/edit/' + ${g.id}}" class="btn btn-edit">Edit</a>
+                <form th:action="@{'/admin/goals/delete/' + ${g.id}}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="bts">
+    <a href="/admin/goals/add" class="btn btn-add">Add goal</a>
+    <a href="/admin/dashboard" class="btn btn-back">Back to Dashboard</a>
+</div>
 </body>
 </html>

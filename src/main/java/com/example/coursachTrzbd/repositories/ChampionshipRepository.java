@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface ChampionshipRepository extends JpaRepository<Championship, Integer> {
-    @Query("SELECT DISTINCT c.season FROM Championship c WHERE c.id = :id")
-    List<String> findDistinctSeasonsByChampionshipId(@Param("id") Integer id);
-
+    @Query("SELECT DISTINCT c.season FROM Championship c WHERE c.name = :name ORDER BY c.season DESC")
+    List<String> findDistinctSeasonsByChampionshipName(@Param("name") String name);
 }

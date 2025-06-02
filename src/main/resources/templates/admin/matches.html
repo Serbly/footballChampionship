@@ -1,26 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>Matches</title></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Matches Management</title>
+    <link rel="stylesheet" th:href="@{/css/tables.css}">
+</head>
 <body>
-<h1>Match Management</h1>
-<table border="1">
-    <tr><th>Championship</th><th>Home Team</th><th>Away Team</th><th>Date</th><th>Score</th><th>Stadium</th><th>Actions</th></tr>
-    <tr th:each="match : ${matches}">
-        <td th:text="${match.championship.name}">Championship</td>
-        <td th:text="${match.homeTeam.name}">Home</td>
-        <td th:text="${match.awayTeam.name}">Away</td>
-        <td th:text="${match.date}">Date</td>
-        <td th:text="${match.score}">Score</td>
-        <td th:text="${match.stadium}">Stadium</td>
-        <td>
-            <a th:href="@{'/admin/matches/edit/' + ${match.id}}">Edit</a>
-            <form th:action="@{'/admin/matches/delete/' + ${match.id}}" method="post" style="display:inline;">
-                <button type="submit" onclick="return confirm('Are you sure?');">Delete</button>
-            </form>
-        </td>
-    </tr>
-</table>
-<a href="/admin/matches/add">Add Match</a> |
-<a href="/admin/dashboard">Back to Dashboard</a>
+<h1>Matches Management</h1>
+
+<div class="card">
+    <table>
+        <thead>
+        <tr>
+            <th>Championship</th>
+            <th>Home</th>
+            <th>Away</th>
+            <th>Date</th>
+            <th>Score</th>
+            <th>Stadium</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="m : ${matches}">
+            <td th:text="${m.championship.name}"></td>
+            <td th:text="${m.homeTeam.name}"></td>
+            <td th:text="${m.awayTeam.name}"></td>
+            <td th:text="${m.date}"></td>
+            <td th:text="${m.score}"></td>
+            <td th:text="${m.stadium}"></td>
+            <td>
+                <a th:href="@{'/admin/matches/edit/' + ${m.id}}" class="btn btn-edit">Edit</a>
+                <form th:action="@{'/admin/matches/delete/' + ${m.id}}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="bts">
+    <a href="/admin/matches/add" class="btn btn-add">Add match</a>
+    <a href="/admin/dashboard" class="btn btn-back">Back to Dashboard</a>
+</div>
 </body>
 </html>

@@ -1,28 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>Players</title></head>
+<head>
+    <meta charset="UTF-8">
+    <title>Players Management</title>
+    <link rel="stylesheet" th:href="@{/css/tables.css}">
+</head>
 <body>
-<h1>Player Management</h1>
-<table border="1">
-    <tr>
-        <th>Name</th><th>Number</th><th>Position</th><th>Team</th><th>Nationality</th><th>Birthdate</th><th>Actions</th>
-    </tr>
-    <tr th:each="player : ${players}">
-        <td th:text="${player.name}">Player Name</td>
-        <td th:text="${player.number}">Number</td>
-        <td th:text="${player.position}">Position</td>
-        <td th:text="${player.team.name}">Team</td>
-        <td th:text="${player.nationality}">Nationality</td>
-        <td th:text="${player.birthdate}">Birthdate</td>
-        <td>
-            <a th:href="@{'/admin/players/edit/' + ${player.id}}">Edit</a>
-            <form th:action="@{'/admin/players/delete/' + ${player.id}}" method="post" style="display:inline;">
-                <button type="submit" onclick="return confirm('Are you sure?');">Delete</button>
-            </form>
-        </td>
-    </tr>
-</table>
-<a href="/admin/players/add">Add Player</a> |
-<a href="/admin/dashboard">Back to Dashboard</a>
+<h1>Players Management</h1>
+
+<div class="card">
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Number</th>
+            <th>Position</th>
+            <th>Team</th>
+            <th>Nationality</th>
+            <th>Birthdate</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="player : ${players}">
+            <td th:text="${player.name}"></td>
+            <td th:text="${player.number}"></td>
+            <td th:text="${player.position}"></td>
+            <td th:text="${player.team.name}"></td>
+            <td th:text="${player.nationality}"></td>
+            <td th:text="${player.birthdate}"></td>
+            <td>
+                <a th:href="@{'/admin/players/edit/' + ${player.id}}" class="btn btn-edit">Edit</a>
+                <form th:action="@{'/admin/players/delete/' + ${player.id}}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-delete" onclick="return confirm('Are you sure?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="bts">
+    <a href="/admin/players/add" class="btn btn-add">Add player</a>
+    <a href="/admin/dashboard" class="btn btn-back">Back to Dashboard</a>
+</div>
 </body>
 </html>

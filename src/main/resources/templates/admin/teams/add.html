@@ -1,32 +1,36 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>Add Team</title>
+<head>
+    <meta charset="UTF-8">
+    <title>Add Team</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" th:href="@{/css/forms.css}">
 </head>
 <body>
-<h1>Add Team</h1>
-<form th:action="@{/admin/teams/add}" th:object="${team}" method="post">
-    <label>Name:</label>
-    <input type="text" th:field="*{name}" />
-    <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-    <br>
-    <label>City:</label>
-    <input type="text" th:field="*{city}" />
-    <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></div>
-    <br>
-    <label>Stadium:</label>
-    <input type="text" th:field="*{stadium}" />
-    <div th:if="${#fields.hasErrors('stadium')}" th:errors="*{stadium}"></div>
-    <br>
-    <label>Coach:</label>
-    <select th:field="*{coach.id}" >
-        <option th:each="coach : ${coaches}" th:value="${coach.id}" th:text="${coach.name}"></option>
-    </select>
-    <div th:if="${#fields.hasErrors('coach')}" th:errors="*{coach}"></div>
-    <br>
-    <button type="submit">Save</button>
-</form>
-<a href="/admin/teams">Back</a>
+    <div>
+        <h1>Add Team</h1>
+        <form th:action="@{/admin/teams/add}" th:object="${team}" method="post">
+            <label>Name:</label>
+                <input type="text" th:field="*{name}" />
+                <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+                <br>
+            <label>City:</label>
+                <input type="text" th:field="*{city}" />
+                <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></div>
+                <br>
+            <label>Stadium:</label>
+                <input type="text" th:field="*{stadium}" />
+                <div th:if="${#fields.hasErrors('stadium')}" th:errors="*{stadium}"></div>
+                <br>
+            <label>Coach:</label>
+                <select th:field="*{coach.id}" >
+                    <option th:each="coach : ${coaches}" th:value="${coach.id}" th:text="${coach.name}"></option>
+                </select>
+                <div th:if="${#fields.hasErrors('coach')}" th:errors="*{coach}"></div>
+                <br>
+            <button type="submit">Save</button>
+            <a href="/admin/teams">Back</a>
+        </form>
+    </div>
 </body>
 </html>

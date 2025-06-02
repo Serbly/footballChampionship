@@ -1,0 +1,192 @@
+/* Ваши существующие стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+nav {
+    width: 100%;
+    height: 70px;
+    background-color: #0059ff;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    font-family: sans-serif;
+    font-size: 20px;
+}
+
+nav > a {
+    color: #0059ff;
+    text-decoration: none;
+    width: auto;
+    height: 40px;
+    padding: 10px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav > a:hover {
+    color: white;
+    background-color: #0059ff;
+}
+
+.logo{
+    background-color: #0059ff;
+    color: white;
+}
+
+main {
+    background-color: #c2d5fb; /* Ваш текущий светло-голубой */
+    padding: 20px; /* Добавим немного отступа вокруг всего контента main */
+    min-height: calc(100vh - 70px - 50px); /* Пример: 100vh минус высота nav и footer */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 30px; /* Отступ под заголовком */
+    color: #333; /* Темный цвет для текста заголовка */
+}
+
+main > div {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Отступ между карточками */
+    width: 80%; /* Ограничим ширину контейнера карточек */
+    max-width: 600px; /* Максимальная ширина для читабельности */
+    align-items: center; /* Центрируем ссылки внутри контейнера */
+}
+
+main > div > a {
+    /* Стилизация каждой карточки */
+    width: 100%; /* Карточка занимает всю доступную ширину родительского div */
+    min-height: 60px; /* Минимальная высота для содержимого */
+    padding: 15px 20px; /* Внутренние отступы */
+    background-color: white; /* Фон карточки */
+    border-radius: 8px; /* Скругление углов */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Легкая тень для объема */
+    text-decoration: none; /* Убираем подчеркивание у ссылки */
+    color: #0059ff; /* Цвет текста ссылки */
+    font-weight: bold; /* Жирный текст */
+    font-size: 18px; /* Размер шрифта */
+    text-align: center; /* Центрируем текст по горизонтали */
+
+    display: flex; /* Используем flexbox для выравнивания текста внутри карточки */
+    align-items: center;
+    justify-content: center;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease; /* Плавный переход для эффекта наведения */
+}
+
+main > div > a:hover {
+    transform: translateY(-3px); /* Немного приподнимаем карточку при наведении */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Увеличиваем тень */
+    color: #003e8e; /* Делаем цвет текста немного темнее при наведении */
+}
+
+/* Стилизация футера */
+footer {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0059ff; /* Или другой цвет, чтобы он сочетался */
+    color: white;
+    font-family: sans-serif;
+    font-size: 14px;
+}
+
+.copy{
+    margin: 0;
+}
+
+/*login*/
+
+form{
+    width: 300px;
+    padding: 20px 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    color: #0059ff;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+}
+
+form > div{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%; /* Инпут занимает всю доступную ширину контейнера */
+    padding: 5px 5px;
+    border: 1px solid #ccc; /* Серая граница по умолчанию */
+    border-radius: 8px; /* Скругленные углы */
+    font-family: sans-serif;
+    font-size: 16px;
+    color: #333; /* Цвет текста в инпуте */
+    outline: none; /* Убираем стандартную обводку при фокусе */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Плавный переход для эффектов при фокусе */
+}
+
+/* Эффект при наведении на инпут */
+input[type="text"]:hover,
+input[type="password"]:hover {
+    border-color: #999; /* Граница становится немного темнее */
+}
+
+/* Эффект при фокусе на инпут */
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #0059ff; /* Граница становится синей, как ваш основной цвет */
+    box-shadow: 0 0 0 3px rgba(0, 89, 255, 0.2); /* Легкая синяя тень для выделения */
+}
+
+/* Стилизация placeholder (текст внутри инпута) */
+input::placeholder {
+    color: #999; /* Более светлый цвет для placeholder */
+    font-style: italic; /* Курсив для placeholder */
+}
+
+button{
+    color: white;
+    text-decoration: none;
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    background-color: #0059ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    border: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+button:hover{
+    background-color: white;
+    color: #0059ff;
+}
+
+.list-group-item {
+    text-align: center;
+}
