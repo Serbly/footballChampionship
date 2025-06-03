@@ -1,5 +1,6 @@
 package com.example.coursachTrzbd.services;
 
+import com.example.coursachTrzbd.entity.Championship;
 import com.example.coursachTrzbd.entity.Standing;
 import com.example.coursachTrzbd.error.NotFoundException;
 import com.example.coursachTrzbd.repositories.StandingRepository;
@@ -23,8 +24,8 @@ public class StandingService implements CRUDService<Standing> {
         return standingRepository.findById(id).orElseThrow();
     }
 
-    public List<Standing> findByChampionshipId(Integer championshipId) {
-        return standingRepository.findByChampionshipId(championshipId);
+    public List<Standing> findByChampionship(Championship championship) {
+        return standingRepository.findByChampionship(championship);
     }
 
     public List<Standing> findByChampionshipAndSeason(Integer championshipId, String season) {

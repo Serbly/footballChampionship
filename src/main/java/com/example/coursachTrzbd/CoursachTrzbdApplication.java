@@ -8,5 +8,4 @@ public class CoursachTrzbdApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(CoursachTrzbdApplication.class, args);
 	}
-
 }

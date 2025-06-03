@@ -24,7 +24,7 @@
         </thead>
         <tbody>
         <tr th:each="standing : ${standings}">
-            <td th:text="${standing.championship.name}"></td>
+            <td th:text="${standing.championship.name + '(' + standing.championship.season + ')'}"></td>
             <td th:text="${standing.team.name}"></td>
             <td th:text="${standing.matchesPlayed}"></td>
             <td th:text="${standing.wins}"></td>

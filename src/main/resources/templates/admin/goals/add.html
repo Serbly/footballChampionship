@@ -7,32 +7,72 @@
     <link rel="stylesheet" th:href="@{/css/forms.css}">
 </head>
 <body>
-    <div>
-        <h1>Add Goal</h1>
-        <form th:action="@{/admin/goals/add}" th:object="${goal}" method="post">
-        <label>Match:</label>
-            <select th:field="*{match.id}">
-                <option th:each="match : ${matches}" th:value="${match.id}" th:text="${match.homeTeam.name} + ':' + ${match.awayTeam.name}"></option>
+<div>
+    <h1>Add Goal</h1>
+    <form th:action="@{/admin/goals/add}" th:object="${goal}" method="post">
+
+        <div>
+            <label>Championship:</label>
+            <select id="championshipSelect" name="championship.id" class="form-select" onchange="filterMatches()">
+                <option value="">-- Select --</option>
+                <option th:each="c : ${championships}" th:value="${c.id}"
+                        th:data-name="${c.name}" th:data-season="${c.season}"
+                        th:text="${c.name} + ' (' + ${c.season} + ')'">
+                </option>
+            </select>
+        </div>
+
+        <div>
+            <label>Match:</label>
+            <select id="matchSelect" th:field="*{match.id}" class="form-select">
+                <option th:each="m : ${matches}"
+                        th:value="${m.id}"
+                        th:data-champ-id="${m.championship.id}"
+                        th:text="${m.homeTeam.name + ' : ' + m.awayTeam.name}">
+                </option>
             </select>
             <div th:if="${#fields.hasErrors('match')}" th:errors="*{match}"></div>
-            <br>
-        <label>Player:</label>
-            <select th:field="*{player.id}">
-                <option th:each="player : ${players}" th:value="${player.id}" th:text="${player.name}"></option>
+        </div>
+
+        <div>
+            <label>Player:</label>
+            <select th:field="*{player.id}" class="form-select">
+                <option th:each="p : ${players}" th:value="${p.id}" th:text="${p.name}"></option>
             </select>
-            <div th:if="${#fields.hasErrors('player')}" th:errors="*{player}"></div>
-            <br>
-        <label>Minute:</label>
-            <input type="number" th:field="*{minute}" />
-            <div th:if="${#fields.hasErrors('minute')}" th:errors="*{minute}"></div>
-            <br>
-        <label>Type:</label>
-            <input type="text" th:field="*{type}" />
-            <div th:if="${#fields.hasErrors('type')}" th:errors="*{type}"></div>
-            <br>
-        <button type="submit">Save</button>
-        <a href="/admin/goals">Back</a>
-        </form>
-    </div>
+        </div>
+
+        <div>
+            <label>Minute:</label>
+            <input type="number" th:field="*{minute}" class="form-control"/>
+        </div>
+
+        <div>
+            <label>Type:</label>
+            <input type="text" th:field="*{type}" class="form-control"/>
+        </div>
+
+        <button type="submit" class="btn btn-primary mt-3">Save</button>
+        <a href="/admin/goals" class="btn btn-secondary mt-3">Back</a>
+    </form>
+</div>
+
+<!-- JS: фильтрация матчей -->
+<script>
+    function filterMatches() {
+        const selectedChampId = document.getElementById('championshipSelect').value;
+        const matchSelect = document.getElementById('matchSelect');
+
+        Array.from(matchSelect.options).forEach(option => {
+            const matchChampId = option.getAttribute('data-champ-id');
+            if (!selectedChampId || matchChampId === selectedChampId) {
+                option.hidden = false;
+            } else {
+                option.hidden = true;
+            }
+        });
+
+        matchSelect.selectedIndex = 0; // сброс выбора
+    }
+</script>
 </body>
 </html>

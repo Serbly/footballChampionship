@@ -23,7 +23,7 @@
         </thead>
         <tbody>
         <tr th:each="m : ${matches}">
-            <td th:text="${m.championship.name}"></td>
+            <td th:text="${m.championship.name} + '(' + ${m.championship.season} + ')'"></td>
             <td th:text="${m.homeTeam.name}"></td>
             <td th:text="${m.awayTeam.name}"></td>
             <td th:text="${m.date}"></td>

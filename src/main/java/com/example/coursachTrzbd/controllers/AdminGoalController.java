@@ -1,6 +1,7 @@
 package com.example.coursachTrzbd.controllers;
 
 import com.example.coursachTrzbd.entity.Goal;
+import com.example.coursachTrzbd.services.ChampionshipService;
 import com.example.coursachTrzbd.services.GoalService;
 import com.example.coursachTrzbd.services.MatchService;
 import com.example.coursachTrzbd.services.PlayerService;
@@ -17,11 +18,13 @@ public class AdminGoalController {
 
     private final MatchService matchService;
     private final PlayerService playerService;
+    private final ChampionshipService championshipService;
 
-    public AdminGoalController(GoalService goalService, MatchService matchService, PlayerService playerService) {
+    public AdminGoalController(GoalService goalService, MatchService matchService, PlayerService playerService, ChampionshipService championshipService) {
         this.goalService = goalService;
         this.matchService = matchService;
         this.playerService = playerService;
+        this.championshipService = championshipService;
     }
 
     private final GoalService goalService;
@@ -37,6 +40,7 @@ public class AdminGoalController {
         model.addAttribute("goal", new Goal());
         model.addAttribute("matches", matchService.getAll());
         model.addAttribute("players", playerService.getAll());
+        model.addAttribute("championships", championshipService.getAll());
         return "admin/goals/add";
     }
 
@@ -56,6 +60,7 @@ public class AdminGoalController {
         model.addAttribute("goal", goal);
         model.addAttribute("matches", matchService.getAll());
         model.addAttribute("players", playerService.getAll());
+        model.addAttribute("championships", championshipService.getAll());
         return "admin/goals/edit";
     }
 

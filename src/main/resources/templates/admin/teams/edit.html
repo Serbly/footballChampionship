@@ -11,16 +11,24 @@
         <h1>Edit Team</h1>
         <form th:action="@{/admin/teams/edit}" th:object="${team}" method="post">
             <input type="hidden" th:field="*{id}" />
-            <label>Name:</label>
-                <input type="text" th:field="*{name}" /><br>
-            <label>City:</label>
-            <input type="text" th:field="*{city}" /><br>
-            <label>Stadium:</label>
-                <input type="text" th:field="*{stadium}" /><br>
-            <label>Coach:</label>
+            <div>
+                <label>Name:</label>
+                <input type="text" th:field="*{name}" />
+            </div>
+            <div>
+                <label>City:</label>
+                <input type="text" th:field="*{city}" />
+            </div>
+            <div>
+                <label>Stadium:</label>
+                <input type="text" th:field="*{stadium}" />
+            </div>
+            <div>
+                <label>Coach:</label>
                 <select th:field="*{coach.id}">
                     <option th:each="coach : ${coaches}" th:value="${coach.id}" th:text="${coach.name}"></option>
-                </select><br>
+                </select>
+            </div>
             <button type="submit">Save</button>
             <a href="/admin/teams">Cancel</a>
         </form>

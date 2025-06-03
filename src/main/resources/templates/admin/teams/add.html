@@ -10,24 +10,28 @@
     <div>
         <h1>Add Team</h1>
         <form th:action="@{/admin/teams/add}" th:object="${team}" method="post">
-            <label>Name:</label>
+            <div>
+                <label>Name:</label>
                 <input type="text" th:field="*{name}" />
                 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-                <br>
-            <label>City:</label>
+            </div>
+            <div>
+                <label>City:</label>
                 <input type="text" th:field="*{city}" />
                 <div th:if="${#fields.hasErrors('city')}" th:errors="*{city}"></div>
-                <br>
-            <label>Stadium:</label>
+            </div>
+            <div>
+                <label>Stadium:</label>
                 <input type="text" th:field="*{stadium}" />
                 <div th:if="${#fields.hasErrors('stadium')}" th:errors="*{stadium}"></div>
-                <br>
-            <label>Coach:</label>
+            </div>
+            <div>
+                <label>Coach:</label>
                 <select th:field="*{coach.id}" >
                     <option th:each="coach : ${coaches}" th:value="${coach.id}" th:text="${coach.name}"></option>
                 </select>
                 <div th:if="${#fields.hasErrors('coach')}" th:errors="*{coach}"></div>
-                <br>
+            </div>
             <button type="submit">Save</button>
             <a href="/admin/teams">Back</a>
         </form>

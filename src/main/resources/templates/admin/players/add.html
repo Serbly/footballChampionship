@@ -10,32 +10,38 @@
     <div>
         <h1>Add Player</h1>
         <form th:action="@{/admin/players/add}" th:object="${player}" method="post">
-            <label>Name:</label>
+            <div>
+                <label>Name:</label>
                 <input type="text" th:field="*{name}" />
                 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-                <br>
-            <label>Number:</label>
+            </div>
+            <div>
+                <label>Number:</label>
                 <input type="number" th:field="*{number}" />
                 <div th:if="${#fields.hasErrors('number')}" th:errors="*{number}"></div>
-                <br>
-            <label>Position:</label>
+            </div>
+            <div>
+                <label>Position:</label>
                 <input type="text" th:field="*{position}" />
                 <div th:if="${#fields.hasErrors('position')}" th:errors="*{position}"></div>
-                <br>
-            <label>Team:</label>
+            </div>
+            <div>
+                <label>Team:</label>
                 <select th:field="*{team.id}">
                     <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
                 </select>
                 <div th:if="${#fields.hasErrors('team')}" th:errors="*{team}"></div>
-                <br>
-            <label>Nationality:</label>
+            </div>
+            <div>
+                <label>Nationality:</label>
                 <input type="text" th:field="*{nationality}" />
                 <div th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}"></div>
-                <br>
-            <label>Birthdate:</label>
+            </div>
+            <div>
+                <label>Birthdate:</label>
                 <input type="date" th:field="*{birthdate}" />
                 <div th:if="${#fields.hasErrors('birthdate')}" th:errors="*{birthdate}"></div>
-                <br>
+            </div>
             <button type="submit">Save</button>
             <a href="/admin/players">Back</a>
         </form>

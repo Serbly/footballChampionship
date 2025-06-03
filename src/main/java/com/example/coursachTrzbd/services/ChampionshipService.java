@@ -30,6 +30,10 @@ public class ChampionshipService implements CRUDService<Championship> {
         return repository.findDistinctSeasonsByChampionshipName(name);
     }
 
+    public Championship getByNameAndSeason(String name, String season) {
+        return repository.findByNameAndSeason(name, season);
+    }
+
     public List<Championship> getUniqueChampionships() {
         return repository.findAll().stream()
                 .collect(Collectors.collectingAndThen(

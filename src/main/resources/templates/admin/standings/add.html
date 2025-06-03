@@ -8,38 +8,45 @@
     <div>
         <h1>Add Standing</h1>
         <form th:action="@{/admin/standings/add}" th:object="${standing}" method="post">
-            <label>Championship:</label>
+            <div>
+                <label>Championship:</label>
                 <select th:field="*{championship.id}">
-                    <option th:each="championship : ${championships}" th:value="${championship.id}" th:text="${championship.name}"></option>
+                    <option th:each="championship : ${championships}" th:value="${championship.id}" th:text="${championship.name + '(' + championship.season + ')'}"></option>
                 </select>
                 <div th:if="${#fields.hasErrors('championship')}" th:errors="*{championship}"></div>
-                <br>
-            <label>Team:</label>
+            </div>
+            <div>
+                <label>Team:</label>
                 <select th:field="*{team.id}">
                     <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
                 </select>
                 <div th:if="${#fields.hasErrors('team')}" th:errors="*{team}"></div>
-                <br>
-            <label>Matches Played:</label>
+            </div>
+            <div>
+                <label>Matches Played:</label>
                 <input type="number" th:field="*{matchesPlayed}" />
                 <div th:if="${#fields.hasErrors('matchesPlayed')}" th:errors="*{matchesPlayed}"></div>
-                <br>
-            <label>Wins:</label>
+            </div>
+            <div>
+                <label>Wins:</label>
                 <input type="number" th:field="*{wins}" />
                 <div th:if="${#fields.hasErrors('wins')}" th:errors="*{wins}"></div>
-                <br>
-            <label>Draws:</label>
+            </div>
+            <div>
+                <label>Draws:</label>
                 <input type="number" th:field="*{draws}" />
                 <div th:if="${#fields.hasErrors('draws')}" th:errors="*{draws}"></div>
-                <br>
-            <label>Losses:</label>
+            </div>
+            <div>
+                <label>Losses:</label>
                 <input type="number" th:field="*{losses}" />
                 <div th:if="${#fields.hasErrors('losses')}" th:errors="*{losses}"></div>
-                <br>
-            <label>Points:</label>
+            </div>
+            <div>
+                <label>Points:</label>
                 <input type="number" th:field="*{points}" />
                 <div th:if="${#fields.hasErrors('points')}" th:errors="*{points}"></div>
-                <br>
+            </div>
             <button type="submit">Save</button>
             <a href="/admin/standings">Back</a>
         </form>

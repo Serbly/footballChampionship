@@ -11,24 +11,38 @@
     <h1>Edit Standing</h1>
     <form th:action="@{/admin/standings/edit}" th:object="${standing}" method="post">
       <input type="hidden" th:field="*{id}" />
-      <label>Championship:</label>
+      <div>
+        <label>Championship:</label>
         <select th:field="*{championship}">
-          <option th:each="championship : ${championships}" th:value="${championship.id}" th:text="${championship.name}"></option>
-        </select><br>
-      <label>Team:</label>
+          <option th:each="championship : ${championships}" th:value="${championship.id}" th:text="${championship.name + '(' + championship.season + ')'}"></option>
+        </select>
+      </div>
+      <div>
+        <label>Team:</label>
         <select th:field="*{team}">
           <option th:each="team : ${teams}" th:value="${team.id}" th:text="${team.name}"></option>
-        </select><br>
-      <label>Matches Played:</label>
-        <input type="number" th:field="*{matchesPlayed}" /><br>
-      <label>Wins:</label>
-        <input type="number" th:field="*{wins}" /><br>
-      <label>Draws:</label>
-        <input type="number" th:field="*{draws}" /><br>
-      <label>Losses:</label>
-        <input type="number" th:field="*{losses}" /><br>
-      <label>Points:</label>
-        <input type="number" th:field="*{points}" /><br>
+        </select>
+      </div>
+      <div>
+        <label>Matches Played:</label>
+        <input type="number" th:field="*{matchesPlayed}" />
+      </div>
+      <div>
+        <label>Wins:</label>
+        <input type="number" th:field="*{wins}" />
+      </div>
+      <div>
+        <label>Draws:</label>
+        <input type="number" th:field="*{draws}" />
+      </div>
+      <div>
+        <label>Losses:</label>
+        <input type="number" th:field="*{losses}" />
+      </div>
+      <div>
+        <label>Points:</label>
+        <input type="number" th:field="*{points}" />
+      </div>
       <button type="submit">Save</button>
       <a href="/admin/standings">Cancel</a>
     </form>

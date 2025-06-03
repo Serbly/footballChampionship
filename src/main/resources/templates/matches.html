@@ -1,21 +1,150 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Match</title>
     <link rel="stylesheet" th:href="@{/css/public-pages.css}">
+    <style>
+        body {
+            background-color: #f9fcff;
+            font-family: 'Segoe UI', sans-serif;
+            padding: 100px;
+        }
+
+        .match-info {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+            color: #777;
+        }
+
+        .match-score-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+            margin-bottom: 10px;
+        }
+
+        .team {
+            text-align: center;
+            width: 150px;
+        }
+
+        .team-name {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .score {
+            font-size: 36px;
+            font-weight: bold;
+        }
+
+        .status {
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .goals-list {
+            display: flex;
+            justify-content: center;
+            gap: 45px; /* регулирует расстояние между двумя колонками голов */
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .goals-list .left,
+        .goals-list .right {
+            width: 200px;
+        }
+
+        .goals-list .left {
+            text-align: right;
+        }
+
+        .goals-list .right {
+            text-align: left;
+        }
+
+        .goals-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .goals-list li {
+            margin: 3px 0;
+            white-space: nowrap;
+        }
+
+        .back-link {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn-back {
+            background-color: #007bff;
+            border: none;
+            padding: 10px 18px;
+            color: white;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #0056b3;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-<h2 th:text="${match.homeTeam.name + ':' + match.awayTeam.name}"></h2>
-<p>
-    Дата: <span th:text="${match.date}"></span><br>
-    Счёт: <span th:text="${match.score}"></span>
-</p>
+<div class="container">
 
-<h3>Goals</h3>
-<ul>
-    <li th:each="g : ${match.goals}" th:text="${g.minute + ' мин - ' + g.player.name + ' (' + g.type + ')'}"></li>
-</ul>
+    <div class="match-info">
+        <span th:text="${match.date}"></span>
+    </div>
 
-<a href="javascript:history.back()">Back</a>
+    <div class="match-score-container">
+        <div class="team">
+            <div class="team-name" th:text="${match.homeTeam.name}"></div>
+        </div>
+
+        <div class="score" th:text="${match.score}"></div>
+
+        <div class="team">
+            <div class="team-name" th:text="${match.awayTeam.name}"></div>
+        </div>
+    </div>
+
+    <div class="status">Finished</div>
+
+    <div class="goals-list">
+        <div class="left">
+            <ul>
+                <li th:each="g : ${match.goals}" th:if="${g.player.team.id == match.homeTeam.id}"
+                    th:text="${g.player.name + ' ' + g.minute + '′' + (g.type.name() == 'PENALTY' ? ' (Pen.)' : '')}">
+                </li>
+            </ul>
+        </div>
+        <div class="right">
+            <ul>
+                <li th:each="g : ${match.goals}" th:if="${g.player.team.id == match.awayTeam.id}"
+                    th:text="${g.player.name + ' ' + g.minute + '′' + (g.type.name() == 'PENALTY' ? ' (Pen.)' : '')}">
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="back-link">
+        <a href="javascript:history.back()" class="btn-back">Back</a>
+    </div>
+
+</div>
 </body>
 </html>

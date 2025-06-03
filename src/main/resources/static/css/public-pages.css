@@ -5,12 +5,21 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     padding: 40px 20px;
+}
+
+.title{
+    font-size: 26px;
 }
 
 .container {
     max-width: 800px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 h2, h3, h4 {
@@ -87,8 +96,33 @@ a:hover {
     text-decoration: underline;
 }
 
-ul {
-    text-align: center;
-    list-style: none;
-    padding: 0;
+.btns{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.report{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn__back > a{
+    color: white;
+    text-decoration: none;
+    background-color: #0059ff;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn__back > a:hover{
+    text-decoration: none;
 }

@@ -24,6 +24,9 @@ public class Championship {
     @OneToMany(mappedBy = "championship", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Standing> standings;
 
+    @OneToMany(mappedBy = "championship", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Goal> goals;
+
     public Integer getId() {
         return id;
     }
@@ -62,5 +65,13 @@ public class Championship {
 
     public void setStandings(List<Standing> standings) {
         this.standings = standings;
+    }
+
+    public List<Goal> getGoals() {
+        return goals;
+    }
+
+    public void setGoals(List<Goal> goals) {
+        this.goals = goals;
     }
 }

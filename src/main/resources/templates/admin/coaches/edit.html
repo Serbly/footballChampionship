@@ -11,18 +11,21 @@
         <h1>Edit Coach</h1>
         <form th:action="@{/admin/coaches/edit}" th:object="${coach}" method="post">
             <input type="hidden" th:field="*{id}" />
-            <label>Name:</label>
+            <div>
+                <label>Name:</label>
                 <input type="text" th:field="*{name}"/>
                 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
-                <br>
-            <label>Nationality:</label>
+            </div>
+            <div>
+                <label>Nationality:</label>
                 <input type="text" th:field="*{nationality}"/>
                 <div th:if="${#fields.hasErrors('nationality')}" th:errors="*{nationality}" class="text-danger"></div>
-                <br>
-            <label>Birthdate:</label>
+            </div>
+            <div>
+                <label>Birthdate:</label>
                 <input type="date" th:field="*{birthdate}"/>
                 <div th:if="${#fields.hasErrors('birthdate')}" th:errors="*{birthdate}" class="text-danger"></div>
-                <br>
+            </div>
             <button type="submit">Save</button>
             <a href="/admin/coaches">Cancel</a>
         </form>

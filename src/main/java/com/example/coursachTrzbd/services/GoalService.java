@@ -1,7 +1,9 @@
 package com.example.coursachTrzbd.services;
 
+import com.example.coursachTrzbd.entity.Championship;
 import com.example.coursachTrzbd.entity.Goal;
 import com.example.coursachTrzbd.error.NotFoundException;
+import com.example.coursachTrzbd.repositories.ChampionshipRepository;
 import com.example.coursachTrzbd.repositories.GoalRepository;
 import com.example.coursachTrzbd.repositories.MatchRepository;
 import com.example.coursachTrzbd.repositories.PlayerRepository;
@@ -12,9 +14,11 @@ import java.util.List;
 @Service
 public class GoalService implements CRUDService<Goal>{
     private final GoalRepository goalRepository;
+    private final ChampionshipRepository championshipRepository;
 
-    public GoalService(GoalRepository goalRepository, PlayerRepository playerRepository, MatchRepository matchRepository) {
+    public GoalService(GoalRepository goalRepository, ChampionshipRepository championshipRepository) {
         this.goalRepository = goalRepository;
+        this.championshipRepository = championshipRepository;
     }
 
     @Override
@@ -25,8 +29,9 @@ public class GoalService implements CRUDService<Goal>{
         return goalRepository.findById(id).orElseThrow();
     }
 
-    public List<Object[]> findTopScorersByChampionshipAndSeason(Integer championshipId, String season) {
-        return goalRepository.findTopScorersByChampionshipAndSeason(championshipId, season);
+    public List<Object[]> findTopScorersByChampionshipNameAndSeason(String name, String season) {
+        Championship championship = championshipRepository.findByNameAndSeason(name, season);
+        return goalRepository.findTopScorersByChampionshipId(championship.getId());
     }
 
     @Override

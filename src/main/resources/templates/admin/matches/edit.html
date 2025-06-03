@@ -11,11 +11,14 @@
         <h1>Edit Match</h1>
         <form th:action="@{/admin/matches/edit}" th:object="${match}" method="post">
             <input type="hidden" th:field="*{id}" />
-            <label for="championship">Championship:</label>
+            <div>
+                <label for="championship">Championship:</label>
                 <select id="championship" th:field="*{championship.id}" required>
-                    <option th:each="champ : ${championships}" th:value="${champ.id}" th:text="${champ.name}"></option>
+                    <option th:each="champ : ${championships}" th:value="${champ.id}" th:text="${champ.name} + '(' + ${champ.season} + ')'"></option>
                 </select>
-            <label for="homeTeam">Home Team:</label>
+            </div>
+            <div>
+                <label for="homeTeam">Home Team:</label>
                 <select id="homeTeam" th:field="*{homeTeam.id}" required onchange="updateStadium(this)">
                     <option th:each="team : ${teams}"
                             th:value="${team.id}"
@@ -23,19 +26,28 @@
                             th:data-stadium="${team.stadium}"
                             th:selected="${match.homeTeam.id == team.id}"></option>
                 </select>
-            <label for="awayTeam">Away Team:</label>
+            </div>
+            <div>
+                <label for="awayTeam">Away Team:</label>
                 <select id="awayTeam" th:field="*{awayTeam.id}" required>
                     <option th:each="team : ${teams}"
                             th:value="${team.id}"
                             th:text="${team.name}"
                             th:selected="${match.awayTeam.id == team.id}"></option>
                 </select>
-            <label for="date">Date:</label>
+            </div>
+            <div>
+                <label for="date">Date:</label>
                 <input type="date" id="date" th:field="*{date}"/>
-            <label for="score">Score:</label>
+            </div>
+            <div>
+                <label for="score">Score:</label>
                 <input type="text" id="score" th:field="*{score}"/>
-            <label for="stadium">Stadium:</label>
+            </div>
+            <div>
+                <label for="stadium">Stadium:</label>
                 <input type="text" id="stadium" th:field="*{stadium}" readonly/>
+            </div>
             <button type="submit">Save</button>
             <a href="/admin/matches">Cancel</a>
         </form>

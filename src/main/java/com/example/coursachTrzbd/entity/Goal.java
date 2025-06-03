@@ -15,6 +15,11 @@ public class Goal {
     private Integer id;
 
     @ManyToOne
+    @JoinColumn(name = "championship_id")
+    @NotNull(message = "Укажите чемпионат")
+    private Championship championship;
+
+    @ManyToOne
     @JoinColumn(name = "match_id")
     @NotNull(message = "Укажите матч")
     private Match match;
@@ -72,5 +77,11 @@ public class Goal {
 
     public void setType(@NotNull(message = "Выберите тип гола") GoalType type) {
         this.type = type;
+    }
+
+    public Championship getChampionship() { return championship; }
+
+    public void setChampionship(Championship championship) {
+        this.championship = championship;
     }
 }

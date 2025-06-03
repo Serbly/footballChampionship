@@ -6,7 +6,7 @@
 </head>
 <body>
 <div class="container">
-    <h2 th:text="'Championship: ' + ${championship.name}"></h2>
+    <h2 class="title" th:text="'Championship: ' + ${championship.name}"></h2>
 
     <form method="get" th:action="@{/standings/{id}(id=${championship.id})}">
         <label for="season">Select season:</label>
@@ -45,10 +45,15 @@
     </table>
 
     <h4>Выгрузить отчёт:</h4>
-    <a th:href="@{/report/excel/{id}(id=${championship.id}, season=${selectedSeason})}">Excel</a>
-    <a th:href="@{/report/pdf/{id}(id=${championship.id}, season=${selectedSeason})}">PDF</a>
-    <br>
-    <a href="/">Back</a>
+    <div class="btns">
+        <div class="report">
+            <a th:href="@{/report/excel/{id}(id=${championship.id}, season=${selectedSeason})}">Excel</a>
+            <a th:href="@{/report/pdf/{id}(id=${championship.id}, season=${selectedSeason})}">PDF</a>
+        </div>
+        <div class="btn__back">
+            <a href="/">Back</a>
+        </div>
+    </div>
 </div>
 </body>
 </html>

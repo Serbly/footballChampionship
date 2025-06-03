@@ -40,16 +40,16 @@ public class PublicController {
             @RequestParam(name = "season", required = false) String season,
             Model model) {
 
-        Championship championship = championshipService.getById(id);
-
-        List<String> availableSeasons = championshipService.findSeasonsByChampionshipName(championship.getName());
-
+        Championship current = championshipService.getById(id);
+        List<String> availableSeasons = championshipService.findSeasonsByChampionshipName(current.getName());
         String selectedSeason = (season != null) ? season : availableSeasons.get(0);
 
-        List<Standing> standings = standingService.findByChampionshipAndSeason(id, selectedSeason);
-        List<Object[]> topScorers = goalService.findTopScorersByChampionshipAndSeason(id, selectedSeason);
+        Championship selectedChampionship = championshipService.getByNameAndSeason(current.getName(), selectedSeason);
 
-        model.addAttribute("championship", championship);
+        List<Standing> standings = standingService.findByChampionship(selectedChampionship);
+        List<Object[]> topScorers = goalService.findTopScorersByChampionshipNameAndSeason(current.getName(), selectedSeason);
+
+        model.addAttribute("championship", selectedChampionship);
         model.addAttribute("seasons", availableSeasons);
         model.addAttribute("selectedSeason", selectedSeason);
         model.addAttribute("standings", standings);
@@ -57,7 +57,6 @@ public class PublicController {
 
         return "standings";
     }
-
 
     @GetMapping("/team/{id}")
     public String teamDetails(

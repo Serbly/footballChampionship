@@ -1,5 +1,6 @@
 package com.example.coursachTrzbd.repositories;
 
+import com.example.coursachTrzbd.entity.Championship;
 import com.example.coursachTrzbd.entity.Standing;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -10,7 +11,7 @@ import java.util.List;
 
 @Repository
 public interface StandingRepository extends JpaRepository<Standing, Integer> {
-    List<Standing> findByChampionshipId(Integer championshipId);
+    List<Standing> findByChampionship(Championship championship);
 
     @Query("""
     SELECT s FROM Standing s

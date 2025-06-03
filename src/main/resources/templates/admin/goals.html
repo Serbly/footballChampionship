@@ -12,6 +12,7 @@
     <table>
         <thead>
         <tr>
+            <th>Championship</th>
             <th>Match</th>
             <th>Player</th>
             <th>Minute</th>
@@ -21,6 +22,7 @@
         </thead>
         <tbody>
         <tr th:each="g : ${goals}">
+            <td th:text="${g.championship.name} + '(' + ${g.championship.season} + ')'"></td>
             <td th:text="${g.match.homeTeam.name} + ':' + ${g.match.awayTeam.name}"></td>
             <td th:text="${g.player.name}"></td>
             <td th:text="${g.minute}"></td>

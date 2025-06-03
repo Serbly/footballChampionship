@@ -10,12 +10,16 @@
     <div>
         <h2>Add Championship</h2>
         <form th:action="@{/admin/championships/add}" th:object="${championship}" method="post">
-            <label>Name:</label>
+            <div>
+                <label>Name:</label>
                 <input type="text" th:field="*{name}"/>
                 <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="text-danger"></div>
-            <label>Season:</label>
+            </div>
+            <div>
+                <label>Season:</label>
                 <input type="text" th:field="*{season}"/>
                 <div th:if="${#fields.hasErrors('season')}" th:errors="*{season}" class="text-danger"></div>
+            </div>
             <button type="submit">Save</button>
             <a href="/admin/championships">Back</a>
         </form>

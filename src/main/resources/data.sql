@@ -19,12 +19,12 @@ INSERT INTO players (name, number, position, team_id, nationality, birthdate) VA
 ('Alexander Lacazette', 9, 'FORWARD', 1, 'France', '1991-03-22'),
 ('Bradley Barcola', 11, 'FORWARD', 2, 'France', '1998-06-12');
 
-INSERT INTO goals (match_id, player_id, minute, type) VALUES
-(1, 1, 15, 'DEFAULT'),
-(1, 2, 40, 'PENALTY'),
-(1, 3, 80, 'DEFAULT'),
-(2, 2, 15, 'DEFAULT'),
-(2, 3, 40, 'DEFAULT');
+INSERT INTO goals (championship_id, match_id, player_id, minute, type) VALUES
+(1 ,1, 1, 15, 'DEFAULT'),
+(1,1, 2, 40, 'PENALTY'),
+(1 ,1, 3, 80, 'DEFAULT'),
+(1, 2, 2, 15, 'DEFAULT'),
+(1, 2, 3, 40, 'DEFAULT');
 
 INSERT INTO standings (championship_id, matches_played, wins, draws, losses, points, team_id) VALUES
 (1, 2, 1, 1, 0, 4, 1),
