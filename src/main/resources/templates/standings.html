@@ -6,42 +6,43 @@
 </head>
 <body>
 <div class="container">
-    <h2 class="title" th:text="'Championship: ' + ${championship.name}"></h2>
+    <!-- заголовок + data-атрибут с id чемпионата и выбранным сезоном -->
+    <h2 id="champ-title"
+        class="title"
+        th:text="'Championship: ' + ${championship.name}"
+        th:attr="data-champ-id=${championship.id}, data-selected-season=${selectedSeason}"></h2>
 
-    <form method="get" th:action="@{/standings/{id}(id=${championship.id})}">
+    <!-- форма выбора сезона (обязательно id для JS) -->
+    <form id="seasonForm" method="get" th:action="@{/standings/{id}(id=${championship.id})}">
         <label for="season">Select season:</label>
         <select id="season" name="season" class="form-select d-inline w-auto">
-            <option th:each="s : ${seasons}" th:value="${s}" th:text="${s}"
+            <option th:each="s : ${seasons}"
+                    th:value="${s}"
+                    th:text="${s}"
                     th:selected="${s == selectedSeason}"></option>
         </select>
         <button type="submit" class="btn btn-sm btn-dark">View</button>
     </form>
 
-
-    <h3>Standings (Season: <span th:text="${selectedSeason}"></span>)</h3>
+    <!-- Таблица результатов — tbody пустой, заполняется JS -->
+    <h3>Standings (Season: <span id="seasonLabel" th:text="${selectedSeason}"></span>)</h3>
     <table>
+        <thead>
         <tr><th>Team</th><th>M</th><th>W</th><th>D</th><th>L</th><th>P</th></tr>
-        <tr th:each="s : ${standings}">
-            <td>
-                <a th:href="@{/team/{id}(id=${s.team.id}, season=${selectedSeason})}"
-                   th:text="${s.team.name}"></a>
-            </td>
-            <td th:text="${s.matchesPlayed}"></td>
-            <td th:text="${s.wins}"></td>
-            <td th:text="${s.draws}"></td>
-            <td th:text="${s.losses}"></td>
-            <td th:text="${s.points}"></td>
-        </tr>
+        </thead>
+        <tbody id="standings-body">
+        <!-- НЕ используем здесь th:each — tbody будет пуст и заполняется fetch'ом -->
+        </tbody>
     </table>
 
     <h3>Top scorers</h3>
     <table>
+        <thead>
         <tr><th>Player</th><th>Team</th><th>Goals</th></tr>
-        <tr th:each="row : ${topScorers}">
-            <td th:text="${row[0]}"></td>
-            <td th:text="${row[1]}"></td>
-            <td th:text="${row[2]}"></td>
-        </tr>
+        </thead>
+        <tbody id="scorers-body">
+        <!-- тоже пустой -->
+        </tbody>
     </table>
 
     <h4>Выгрузить отчёт:</h4>
@@ -55,5 +56,101 @@
         </div>
     </div>
 </div>
+
+<!-- JS: берём id чемпионата и сезон из data-атрибутов/селекта, перехватываем submit, делаем fetch и вставляем строки -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('seasonForm');
+        const select = document.getElementById('season');
+        const champTitle = document.getElementById('champ-title');
+        const championshipId = champTitle.dataset.champId;
+        const seasonLabel = document.getElementById('seasonLabel');
+
+        const standingsBody = document.getElementById('standings-body');
+        const scorersBody = document.getElementById('scorers-body');
+
+        if (!championshipId) {
+            console.error("Championship id not provided in data-champ-id");
+            return;
+        }
+
+        async function loadAndRender(season) {
+            try {
+                const resp = await fetch(`/api/standings/${championshipId}?season=${encodeURIComponent(season)}`);
+                if (!resp.ok) throw new Error('Network response was not ok: ' + resp.status);
+                const data = await resp.json();
+
+                // обновляем текст сезона
+                seasonLabel.textContent = season;
+
+                // render standings
+                standingsBody.innerHTML = '';
+                if (!data.standings || data.standings.length === 0) {
+                    standingsBody.innerHTML = `<tr><td colspan="6">No standings data</td></tr>`;
+                } else {
+                    data.standings.forEach(s => {
+                        // предполагаем структуру: teamId, teamName, matchesPlayed, wins, draws, losses, points
+                        const teamId = s.teamId;
+                        const teamName = s.teamName;
+                        const rowHtml = `
+                        <tr>
+                            <td><a href="/team/${teamId}?season=${encodeURIComponent(season)}">${escapeHtml(teamName)}</a></td>
+                            <td>${s.matchesPlayed ?? ''}</td>
+                            <td>${s.wins ?? ''}</td>
+                            <td>${s.draws ?? ''}</td>
+                            <td>${s.losses ?? ''}</td>
+                            <td>${s.points ?? ''}</td>
+                        </tr>
+                    `;
+                        standingsBody.insertAdjacentHTML('beforeend', rowHtml);
+                    });
+                }
+
+                // render top scorers
+                scorersBody.innerHTML = '';
+                if (!data.topScorers || data.topScorers.length === 0) {
+                    scorersBody.innerHTML = `<tr><td colspan="3">No top scorers</td></tr>`;
+                } else {
+                    data.topScorers.forEach(r => {
+                        // r: { player: ..., team: ..., goals: ... }
+                        const rowHtml = `
+                        <tr>
+                            <td>${escapeHtml(String(r.player ?? ''))}</td>
+                            <td>${escapeHtml(String(r.team ?? ''))}</td>
+                            <td>${r.goals ?? ''}</td>
+                        </tr>
+                    `;
+                        scorersBody.insertAdjacentHTML('beforeend', rowHtml);
+                    });
+                }
+            } catch (err) {
+                console.error('Error loading standings:', err);
+                standingsBody.innerHTML = `<tr><td colspan="6">Error loading standings</td></tr>`;
+                scorersBody.innerHTML = `<tr><td colspan="3">Error loading top scorers</td></tr>`;
+            }
+        }
+
+        // prevent normal form submit and use fetch
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const season = select.value;
+            loadAndRender(season);
+        });
+
+        // initial load: выбираем value селекта, либо data-selected-season
+        const initialSeason = select.value || champTitle.dataset.selectedSeason || '';
+        if (initialSeason) loadAndRender(initialSeason);
+
+        // helper to avoid XSS
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    });
+</script>
 </body>
 </html>
