@@ -52,8 +52,8 @@ DTO → Entity → Mapper
 
 ## ⚙️ Запуск
 
-```bash`
 git clone https://github.com/Serbly/footballChampionship.git
+
 mvn spring-boot:run
 
 ## 🎯 Назначение проекта
